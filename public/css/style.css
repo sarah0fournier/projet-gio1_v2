@@ -1,0 +1,141 @@
+
+#map {
+    height: 100vh;
+}
+
+
+#menu {
+    height: 100vh;
+}
+
+
+/* ----- Bouton dessiner polygone */
+#drawSelection {
+    position: absolute;
+    right: 20px;
+    top: 50px;
+}
+
+#startDrawingButton {
+    /* background-color: #ffffff; */
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 5px;
+    height: 50px;
+    width: 50px;
+}
+
+#imgDraw {
+    width: 40px;
+    height: 40px;
+}
+
+/* ----- End : Bouton dessiner polygone */
+
+/* Style pour l'icône d'information */
+.info-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url('https://image.flaticon.com/icons/png/128/565/565261.png');
+    background-size: cover;
+    cursor: pointer;
+}
+
+/* ----- Bouton barre de recherche */
+#scrollable-dropdown-menu .tt-dropdown-menu {
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+/* Ajout de la barre de défilement à la liste des suggestions */
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    /* Ajoutez ceci pour afficher la barre de défilement uniquement si nécessaire */
+    overflow-x: hidden;
+}
+
+.ui-menu-item {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.ui-menu-item:hover {
+    background-color: #f0f0f0;
+}
+
+.ui-state-focus {
+    background-color: #ddd;
+}
+/* ----- End : Bouton barre de recherche */
+
+/* ----- Bouton changement layer */
+#changeMapSelection {
+    position: absolute;
+    right: 20px;
+    top: 50px;
+}
+
+#changeMapButton {
+    /* background-color: #ffffff; */
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 5px;
+    height: 50px;
+    width: 50px;
+}
+
+#imgchangeMap {
+    width: 40px;
+    height: 40px;
+}
+
+/* ----- End : Bouton dessiner polygone */
+
+/* ----- Popoup information */
+.ol-popup {
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    bottom: 12px;
+    left: -50px;
+    min-width: 280px;
+  }
+  .ol-popup:after, .ol-popup:before {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+  .ol-popup:after {
+    border-top-color: white;
+    border-width: 10px;
+    left: 48px;
+    margin-left: -10px;
+  }
+  .ol-popup:before {
+    border-top-color: #cccccc;
+    border-width: 11px;
+    left: 48px;
+    margin-left: -11px;
+  }
+  .ol-popup-closer {
+    text-decoration: none;
+    position: absolute;
+    top: 2px;
+    right: 8px;
+  }
+  .ol-popup-closer:after {
+    content: "✖";
+  }
+
+  /* ----- End : Popoup information */

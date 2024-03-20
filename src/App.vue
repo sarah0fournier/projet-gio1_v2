@@ -64,7 +64,8 @@
             
           <!-- Couches à cocher -->
           <div class="mt-2 greyBackground border border-dark p-1"> 
-            <ViewChecboxLayer />
+            <!-- <ViewChecboxLayer @changed="layersChanged" /> -->
+            <ViewChecboxLayer :layers="layers" :layerVisibility="layerVisibility" @layer-visibility-changed="toggleLayer" />
           </div>
           <!-- End Conteneur layers -->
 
@@ -73,7 +74,8 @@
 
       <!-- Right: Contenur map -->
       <div class="col">
-        <ViewMaps> </ViewMaps>
+        <ViewMaps :layers="layers" :layerVisibility="layerVisibility"> </ViewMaps>
+
           <!-- <div id="map">
               <div id="popup" class="ol-popup"></div>
           </div> -->
@@ -97,13 +99,20 @@ import initFlightForm from './assets/js/flightForm.js'; // File a laisser
 // import searchLocation from './assets/js/searchLocation.js'; 
 // import infoClick from './assets/js/infoClick.js'; 
 
+import { GeoAdminLayer } from './components/views/ViewChecboxLayer.vue';
 
+import { createLayerGeoAdmin } from './components/views/ViewChecboxLayer.vue';
 // Import composant
 import ViewMaps from './components/views/ViewMaps.vue';
 import ViewButton from './components/views/ViewButton.vue';
 import ViewChecboxLayer from './components/views/ViewChecboxLayer.vue'; 
 import ViewFlightZone from './components/views/ViewFlightZone.vue'; 
 
+// const wmsUrlGeoadmin = "https://wms.geo.admin.ch/";
+    // URL de base pour les attributions
+// const attributionUrlGeoadmin = "https://www.geo.admin.ch/fr/home.html";
+
+import { wmsUrlGeoadmin, attributionUrlGeoadmin } from './assets/js/constante.js';
 
 export default {
   name: 'App-root',
@@ -116,6 +125,22 @@ export default {
 
   data(){
     return {
+      layers : [
+        createLayerGeoAdmin("Restriction pour drone CH","ch.bazl.einschraenkungen-drohnen", "Zones géographiques UAS en Suisse / OFAC", wmsUrlGeoadmin, attributionUrlGeoadmin ),
+        createLayerGeoAdmin("Obstacle a la navigation aerienne","ch.bazl.luftfahrthindernis", "Obstacles à la navigation aérienne / OFAC", wmsUrlGeoadmin, attributionUrlGeoadmin ),
+        
+        // new GeoAdminLayer("Restriction pour drone CH","ch.bazl.einschraenkungen-drohnen", "Zones géographiques UAS en Suisse / OFAC"),
+        // new GeoAdminLayer("Obstacle a la navigation aerienne","ch.bazl.luftfahrthindernis", "Obstacles à la navigation aérienne / OFAC")
+        // Ajoutez d'autres couches si necessaire      
+      ],
+
+      // Visibilite des couches 
+      layerVisibility : [
+        true,
+        false,
+      ],
+
+
       menuList:[
         {
           menuname:"Hello",
@@ -147,7 +172,7 @@ export default {
   },
   mounted() {
     // initLayer();
-    initMouseCoord();
+    // initMouseCoord();
     // initFlightZone();   
     // initFlightForm();
   },

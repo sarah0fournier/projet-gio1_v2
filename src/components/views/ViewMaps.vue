@@ -21,6 +21,7 @@
           <a @click="changeBackground('swissimage')" class="w3-bar-item w3-button">swissImage</a>
           <a @click="changeBackground('nothing')" class="w3-bar-item w3-button">-</a>
         </div>
+
       </div>
     </div>
 </template>
@@ -40,10 +41,6 @@
 
     // Code pour la projections Suisse
     const projectionCode = "EPSG:2056";
-
-    // Objet map
-    let map;
-    export { map };
 
 // Classe pour definir les fonds de carte
 // Question : Aurait voulu faire une classe pour fond de carte puis des sous classe ou je fait varie name, layerName, attribution. url, ...
@@ -112,14 +109,17 @@ export default {
         ViewCheckboxLayer,
         ViewFlightZone,
     },
-
+    props:
+        ['layers', 'layerVisibility'],
+   
     data() {
       return {
-        layers: {
-        CN : new BackgroundLayerGeoAdmin("CarteNationale", "ch.swisstopo.pixelkarte-farbe", "WMTS CarteNationale / geo.admin.ch"),
-        swissSurface3D : new BackgroundLayerGeoAdmin("SwissSURFACE3D", "ch.swisstopo.swisssurface3d-reliefschattierung-multidirektional", "WMTS Relief multidir. issu de SwissSURFACE3D / geo.admin.ch"),
-        MO : new BackgroundLayerGeodienste("MO", 'LCSF,LCSFPROJ,Conduites,SOLI,SOSF,SOPT,Adresses_des_batiments,Nomenclature,Biens_fonds,Biens_fonds_projetes,Limites_territoriales', "WMTS Relief multidir. issu de SwissSURFACE3D / geo.admin.ch"),
-        swissImage : new BackgroundLayerGeoAdmin("swissImage", "ch.swisstopo.swissimage", "WMTS swissimage / geo.admin.ch"),
+        map: null,
+        layersBackground: {
+            CN : new BackgroundLayerGeoAdmin("CarteNationale", "ch.swisstopo.pixelkarte-farbe", "WMTS CarteNationale / geo.admin.ch"),
+            swissSurface3D : new BackgroundLayerGeoAdmin("SwissSURFACE3D", "ch.swisstopo.swisssurface3d-reliefschattierung-multidirektional", "WMTS Relief multidir. issu de SwissSURFACE3D / geo.admin.ch"),
+            MO : new BackgroundLayerGeodienste("MO", 'LCSF,LCSFPROJ,Conduites,SOLI,SOSF,SOPT,Adresses_des_batiments,Nomenclature,Biens_fonds,Biens_fonds_projetes,Limites_territoriales', "WMTS Relief multidir. issu de SwissSURFACE3D / geo.admin.ch"),
+            swissImage : new BackgroundLayerGeoAdmin("swissImage", "ch.swisstopo.swissimage", "WMTS swissimage / geo.admin.ch"),
         },
       };
     },    
@@ -133,9 +133,9 @@ export default {
             });
     
             //--------------- INITIALISATION CARTE -----------------  
-           map = new ol.Map({
+           this.map = new ol.Map({
                 target: "map",
-                layers: [this.layers.CN.getLayer()],
+                layers: [this.layersBackground.CN.getLayer()],
 
                 //--------------- VUE-----------------  
                 // Définition de la vue de la carte
@@ -146,23 +146,43 @@ export default {
                     extent: [232e4, 93e4, 30e5, 145e4]
             })
             });
+
         },
         //--------------- CHANGEMENT LAYER-----------------  
         // Fonction générique pour gérer le changement de visibilité des couches
         changeBackground(layer) {
-            Object.values(this.layers).forEach(layer => {
-            map.removeLayer(layer.getLayer());
+            Object.values(this.layersBackground).forEach(layer => {
+            this.map.removeLayer(layer.getLayer());
             });
     
-            if (this.layers[layer]) {
-           map.addLayer(this.layers[layer].getLayer());
+            if (this.layersBackground[layer]) {
+                const layerToAdd = this.layersBackground[layer].getLayer();
+                this.map.addLayer(layerToAdd);
+
+                // this.map.addLayer(this.layersBackground[layer].getLayer());
             }
         },
+
+        // Methode pour ajouter une couche à la carte
+        // addLayer(layer) {
+        //     this.map.addLayer(layer);
+
+        // }
     },
     mounted() {
         // Appelez initMap lors du montage du composant
         this.initMap();
-    },
+
+        // Ajouter les layers a la map
+        // Pour chaque couche et sa visibilité correspondante
+        this.layers.forEach((layer, index) => {
+            // Vérifiez si la couche est visible
+            if (this.layerVisibility[index]) {
+                // Ajoutez la couche à la carte
+                this.map.addLayer(layer);
+            }
+        });
+        },
   };
 
 </script>

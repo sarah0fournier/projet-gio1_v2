@@ -8,22 +8,19 @@
     <div>
       <h2>Layers</h2>
       <div v-for="(layer, index) in layers" :key="index">
-        <input type="checkbox" v-model="layer.visible" @change="toggleLayer(layer)">
+        <!-- <input type="checkbox" v-model="layer.visible" @change="toggleLayer(layer)"> -->
+        <input type="checkbox" @change="toggleLayer(layer)">
         <label>{{ layer.name }}</label>
+        <label>{{ index }}</label>
+        
       </div>
     </div>
 </template>
   
 <script>
-import { map } from '@/components/views/ViewMaps.vue';
+// import { map } from '@/components/views/ViewMaps.vue';
+import { wmsUrlGeoadmin, attributionUrlGeoadmin, projectionCode } from '../../assets/js/constante.js';
 
-    //--------------- VARIABLES -----------------  
-    // URL de base pour les services WMS
-    const wmsUrlGeoadmin = "https://wms.geo.admin.ch/";
-    // URL de base pour les attributions
-    const attributionUrlGeoadmin = "https://www.geo.admin.ch/fr/home.html";
-    // Code pour la projections Suisse
-    const projectionCode = "EPSG:2056";
 
 
     // Classe pour definir les couches sur la map
@@ -42,9 +39,6 @@ import { map } from '@/components/views/ViewMaps.vue';
             zIndex: -98,
 
             });
-
-            // Ajouter la couche à la carte
-            // map.addLayer(this.layer);
         }
 
         getLayer() {
@@ -52,25 +46,44 @@ import { map } from '@/components/views/ViewMaps.vue';
         }
     }
 
-    export default {
+    export function createLayerGeoAdmin(name, layerName, attribution, wmsurl, attributionUrl ) {
+        return new ol.layer.Tile({
+            source: new ol.source.TileWMS({
+                url: wmsurl,
+                projection: projectionCode,
+                params: { layers: layerName },
+                attributions: [`&copy; <a href="${attributionUrl}">${attribution}</a>`]
+            }),
+            zIndex: -99,
+            opacity: 0.5,
+        });
+}
 
-        data() {
-            return {
-                layers: [
-                    new GeoAdminLayer("Restriction pour drone CH","ch.bazl.einschraenkungen-drohnen", "Zones géographiques UAS en Suisse / OFAC"),
-                    new GeoAdminLayer("Obstacle a la navigation aerienne","ch.bazl.luftfahrthindernis", "Obstacles à la navigation aérienne / OFAC")
-                    // Ajoutez d'autres couches si necessaire
-                ]
-            };
-        },
+    export { GeoAdminLayer };
+
+    export default {
+        // TODO make those layers props
+        // data() {
+        //     return {
+        //         layers: [
+        //             new GeoAdminLayer("Restriction pour drone CH","ch.bazl.einschraenkungen-drohnen", "Zones géographiques UAS en Suisse / OFAC"),
+        //             new GeoAdminLayer("Obstacle a la navigation aerienne","ch.bazl.luftfahrthindernis", "Obstacles à la navigation aérienne / OFAC")
+        //             // Ajoutez d'autres couches si necessaire
+        //         ]
+        //     };
+        // },
+        props : ['layers'],
+
         methods: {
             toggleLayer(layer) {
                 // Changer la visibilite de la couche
                 console.log("Toggling layer", layer);
-                layer.getLayer().setVisible(layer.visible);
+                layer.visible = !layer.visible; // Inversez la visibilité de la couche
+                this.$emit('layer-visibility-changed', layer);
                 console.log("Layer visibility:", layer.visible);
-            } 
+            } ,
         }
     };
+
 </script>
   

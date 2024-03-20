@@ -72,15 +72,17 @@ import { wmsUrlGeoadmin, attributionUrlGeoadmin, projectionCode } from '../../as
         //         ]
         //     };
         // },
-        props : ['layers'],
-
+        props : {
+            layers: Array,
+        },
         methods: {
             toggleLayer(layer) {
+                layer.setVisible(!layer.getVisible());
                 // Changer la visibilite de la couche
                 console.log("Toggling layer", layer);
-                layer.visible = !layer.visible; // Inversez la visibilité de la couche
-                this.$emit('layer-visibility-changed', layer);
-                console.log("Layer visibility:", layer.visible);
+                // layer.visible = !layer.visible; // Inversez la visibilité de la couche
+                // this.$emit('layer-visibility-changed', layer);
+                // console.log("Layer visibility:", layer.visible);
             } ,
         }
     };

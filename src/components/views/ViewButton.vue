@@ -37,32 +37,33 @@
             }
         },
         methods: {
-      boutonClick() {
-        switch (this.buttonId) {
-          case 'submitBtn':
-            event.preventDefault();
-            if (flightForm.validateForm()) {
-              console.log("Formulaire soumis avec succès !");
-            }
-            console.log("Vous avez cliqué sur le bouton Soumettre !");
-            break;
+          boutonClick(event) {
+            this.$emit('bouton-click', event);
+        // switch (this.buttonId) {
+        //   case 'submitBtn':
+        //     event.preventDefault();
+        //     if (flightForm.validateForm()) {
+        //       console.log("Formulaire soumis avec succès !");
+        //     }
+        //     console.log("Vous avez cliqué sur le bouton Soumettre !");
+        //     break;
 
-          case 'resetBtn':
-            flightForm.resetForm();
-            console.log("Vous avez cliqué sur le bouton Réinitialiser !");
-            break;
+        //   case 'resetBtn':
+        //     flightForm.resetForm();
+        //     console.log("Vous avez cliqué sur le bouton Réinitialiser !");
+        //     break;
 
-          case 'drawBtn':
-            // Je dois mettre les variables draw comme globale ? J'ai ce pbl a plusoeurs endroit avec des variables non globale et donc recupere pas hors function
-            console.log("Ajouter fonction pour dessiner");
-            // startDrawingOnClickFormular(event, draw);
-            // startDrawingOnClick(event);
-            this.startDrawing()
-            break;
+        //   case 'drawBtn':
+        //     // Je dois mettre les variables draw comme globale ? J'ai ce pbl a plusoeurs endroit avec des variables non globale et donc recupere pas hors function
+        //     console.log("Ajouter fonction pour dessiner");
+        //     // startDrawingOnClickFormular(event, draw);
+        //     // startDrawingOnClick(event);
+        //     this.startDrawing()
+        //     break;
 
-          default:
-            console.log("Bouton non reconnu !");
-        }
+        //   default:
+        //     console.log("Bouton non reconnu !");
+        // }
       },
       startDrawing() {
           console.log('start-drawing')

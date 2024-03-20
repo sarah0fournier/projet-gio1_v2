@@ -109,9 +109,30 @@ export default {
         ViewCheckboxLayer,
         ViewFlightZone,
     },
-    props:
-        ['layers', 'layerVisibility'],
-   
+    props: {
+        layers: Array,
+        layerVisibility: Array,
+    },
+    watch: {
+        // layerVisibility: {
+        //     handler(newVal) {
+        //         console.log(`ViewMaps.vue : layerVisibility changed to ${newVal}`)
+        //         // Pour chaque couche et sa visibilité correspondante
+        //         this.layers.forEach((layer, index) => {
+        //             // Vérifiez si la couche est visible
+        //             if (newVal[index]) {
+        //                 // Ajoutez la couche à la carte
+        //                 console.log(`ViewMaps.vue : adding layer`, layer)
+        //                 layer.setVisible(true);
+        //             } else {
+        //                 // Sinon, retirez la couche de la carte
+        //                 layer.setVisible(false);
+        //             }
+        //         });
+        //     },
+        //     deep: true,
+        // },
+    },
     data() {
       return {
         map: null,
@@ -177,10 +198,8 @@ export default {
         // Pour chaque couche et sa visibilité correspondante
         this.layers.forEach((layer, index) => {
             // Vérifiez si la couche est visible
-            if (this.layerVisibility[index]) {
-                // Ajoutez la couche à la carte
-                this.map.addLayer(layer);
-            }
+            this.map.addLayer(layer);
+            layer.setVisible(this.layerVisibility[index]);
         });
         },
   };

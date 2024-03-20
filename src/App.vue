@@ -49,14 +49,14 @@
                   <label for="DrawingButton" style="display: inline-block;">Dessiner la zone de vol :</label>
                   
                   <!-- Ajouter avec bouton vue iconne dessin -->
-                  <ViewButton buttonImage="/img/pentagon-svgrepo-com.png" buttonId="drawBtn" />
+                  <ViewButton buttonImage="/img/pentagon-svgrepo-com.png" buttonId="drawBtn" @bouton-clik="startDraw"/>
 
                   <!-- Bouton dessin pour test develloppement -->
                   <!-- <ViewFlightZone @start-drawing="startDrawingOnMap" /> -->
                   <br><br>
 
                   <!-- Boutons -->
-                  <ViewButton buttonText="Soumettre" buttonId="submitBtn" />
+                  <ViewButton buttonText="Soumettre" buttonId="submitBtn" @bouton-click="submit" />
                   <ViewButton buttonText="Reinitialiser" buttonId="resetBtn" />
               </form>
           </div>
@@ -74,7 +74,7 @@
 
       <!-- Right: Contenur map -->
       <div class="col">
-        <ViewMaps :layers="layers" :layerVisibility="layerVisibility"> </ViewMaps>
+        <ViewMaps :layers="layers" :layerVisibility="layerVisibility" :isDrawing="isDrawing" @end-draw="endDraw"> </ViewMaps>
 
           <!-- <div id="map">
               <div id="popup" class="ol-popup"></div>
@@ -125,6 +125,7 @@ export default {
 
   data(){
     return {
+      isDrawing : false,
       layers : [
         createLayerGeoAdmin("Restriction pour drone CH","ch.bazl.einschraenkungen-drohnen", "Zones géographiques UAS en Suisse / OFAC", wmsUrlGeoadmin, attributionUrlGeoadmin ),
         createLayerGeoAdmin("Obstacle a la navigation aerienne","ch.bazl.luftfahrthindernis", "Obstacles à la navigation aérienne / OFAC", wmsUrlGeoadmin, attributionUrlGeoadmin ),
@@ -136,7 +137,7 @@ export default {
 
       // Visibilite des couches 
       layerVisibility : [
-        true,
+        false,
         false,
       ],
 
@@ -168,6 +169,27 @@ export default {
   computed: {
     currentRoute(){
       return this.$route.path;
+    }
+  },
+  methods: {
+    toggleLayer(layer) {
+      console.log(`App.vue : toggled layer ${layer}`)
+      this.layerVisibility[layerIdx] = !this.layerVisibility[layerIdx];
+      // layer.setVisible(!layer.getVisible());
+      // console.log(`App.vue : layer ${layerIdx} is now ${this.layerVisibility[layerIdx]}`)
+    },
+    submit(event) {
+      event.preventDefault();
+      if (flightForm.validateForm()) {
+        console.log("Formulaire soumis avec succès !");
+      }
+      console.log("Vous avez cliqué sur le bouton Soumettre !");
+    },
+    startDraw(event) {
+      this.isDrawing = true;
+    },
+    endDraw(event) {
+      this.isDrawing = false;
     }
   },
   mounted() {

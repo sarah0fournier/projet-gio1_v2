@@ -1,11 +1,14 @@
 
 <template>
+    <!-- Bouton dessin pour test develloppement -->
     <!-- <button @click="startDrawingOnMap('polygon')">Commencer le dessin</button> -->
+
+    <!-- Ajouter avec bouton vue iconne dessin -->
     <ViewButton buttonImage="/img/pentagon-svgrepo-com.png" buttonId="drawBtn" @start-drawing="startDrawingOnMap('polygon')"/>
 </template>
 
 <!-- TODO : Function dessiner zone vol fonctionne pas !!!!!!!!!!¨¨ -->
-<!-- PBL : Quand clique sur le bouton dessin du polygone sa me console.log bien la fct dans ViewButonn mais pas celle de startDrawingOnMap -->
+<!-- PBL : Quand clique sur le bouton dessin du polygone sa me console.log bien la fct dans ViewButon mais pas celle de startDrawingOnMap -->
 
 
 <script>
@@ -52,6 +55,7 @@
                 this.map.addControl(this.drawControl);
             }
         },
+
         initFlightZone() {
             this.createVectorLayer();
             this.createDrawInteraction(this.vectorLayer); // Ajoutez cette ligne

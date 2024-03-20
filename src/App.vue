@@ -47,7 +47,11 @@
 
                   <!-- Bouton pour démarrer le dessin du polygone -->
                   <label for="DrawingButton" style="display: inline-block;">Dessiner la zone de vol :</label>
+                  
+                  <!-- Ajouter avec bouton vue iconne dessin -->
                   <ViewButton buttonImage="/img/pentagon-svgrepo-com.png" buttonId="drawBtn" />
+
+                  <!-- Bouton dessin pour test develloppement -->
                   <!-- <ViewFlightZone @start-drawing="startDrawingOnMap" /> -->
                   <br><br>
 
@@ -94,10 +98,10 @@ import initFlightForm from './assets/js/flightForm.js'; // File a laisser
 // import infoClick from './assets/js/infoClick.js'; 
 
 
-// Import button
+// Import composant
 import ViewMaps from './components/views/ViewMaps.vue';
 import ViewButton from './components/views/ViewButton.vue';
-import ViewChecboxLayer from './components/views/ViewChecboxLayer.vue'; // Importez votre composant LayerList
+import ViewChecboxLayer from './components/views/ViewChecboxLayer.vue'; 
 import ViewFlightZone from './components/views/ViewFlightZone.vue'; 
 
 

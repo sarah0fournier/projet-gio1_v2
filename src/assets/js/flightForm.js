@@ -33,7 +33,7 @@ export function resetForm() {
     document.getElementById("myForm").reset();
 
     // Reinitialiser le polygone sur la map
-    vectorLayer.getSource().clear();
+    // vectorLayer.getSource().clear();
 }
 
 

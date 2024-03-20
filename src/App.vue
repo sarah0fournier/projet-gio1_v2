@@ -49,15 +49,12 @@
                   <label for="DrawingButton" style="display: inline-block;">Dessiner la zone de vol :</label>
                   
                   <!-- Ajouter avec bouton vue iconne dessin -->
-                  <ViewButton buttonImage="/img/pentagon-svgrepo-com.png" buttonId="drawBtn" />
-
-                  <!-- Bouton dessin pour test develloppement -->
-                  <!-- <ViewFlightZone @start-drawing="startDrawingOnMap" /> -->
+                  <ViewButton buttonImage="/img/pentagon-svgrepo-com.png" buttonId="drawBtn" @bouton-click="startDraw"/>
                   <br><br>
 
                   <!-- Boutons -->
-                  <ViewButton buttonText="Soumettre" buttonId="submitBtn" />
-                  <ViewButton buttonText="Reinitialiser" buttonId="resetBtn" />
+                  <ViewButton buttonText="Soumettre" buttonId="submitBtn" @bouton-click="submit" />
+                  <ViewButton buttonText="Reinitialiser" buttonId="resetBtn" @bouton-click="reset" />
               </form>
           </div>
           <!-- End Formulaire -->
@@ -74,8 +71,8 @@
 
       <!-- Right: Contenur map -->
       <div class="col">
-        <ViewMaps :layers="layers" :layerVisibility="layerVisibility"> </ViewMaps>
-
+        <ViewMaps :layers="layers" :layerVisibility="layerVisibility" :isDrawing="isDrawing" :vectorLayer="vectorLayer" :intialiserFormulaire="intialiserFormulaire">      
+        </ViewMaps>
           <!-- <div id="map">
               <div id="popup" class="ol-popup"></div>
           </div> -->
@@ -89,27 +86,20 @@
 
 <script>
 
-// Traiter fini
-// import initLayer  from './assets/js/layer.js'; // File plus besoin 
-import initMouseCoord from './assets/js/mouseCoord.js'; // File a laisser
 
 // A traiter 
-// import initFlightZone from './assets/js/flightZone.js';
-import initFlightForm from './assets/js/flightForm.js'; // File a laisser
 // import searchLocation from './assets/js/searchLocation.js'; 
 // import infoClick from './assets/js/infoClick.js'; 
+import * as flightForm from './assets/js/flightForm.js';
 
-import { GeoAdminLayer } from './components/views/ViewChecboxLayer.vue';
 
-import { createLayerGeoAdmin } from './components/views/ViewChecboxLayer.vue';
 // Import composant
 import ViewMaps from './components/views/ViewMaps.vue';
 import ViewButton from './components/views/ViewButton.vue';
 import ViewChecboxLayer from './components/views/ViewChecboxLayer.vue'; 
-import ViewFlightZone from './components/views/ViewFlightZone.vue'; 
 
-
-import { wmsUrlGeoadmin, attributionUrlGeoadmin } from './assets/js/constante.js';
+import { wmsUrlGeoadmin, attributionUrlGeoadmin, wmsUrlGeodienst, attributionUrlGeodienst } from './assets/js/constante.js';
+import {createLayer } from './assets/js/addLayer.js';
 
 export default {
   name: 'App-root',
@@ -117,49 +107,34 @@ export default {
     ViewMaps,
     ViewButton,
     ViewChecboxLayer,
-    ViewFlightZone,
   },
 
   data(){
     return {
+      isDrawing : false,
+      intialiserFormulaire : false,
+
       layers : [
-        createLayerGeoAdmin("Restriction pour drone CH","ch.bazl.einschraenkungen-drohnen", "Zones géographiques UAS en Suisse / OFAC", wmsUrlGeoadmin, attributionUrlGeoadmin ),
-        createLayerGeoAdmin("Obstacle a la navigation aerienne","ch.bazl.luftfahrthindernis", "Obstacles à la navigation aérienne / OFAC", wmsUrlGeoadmin, attributionUrlGeoadmin ),
-        
-        // new GeoAdminLayer("Restriction pour drone CH","ch.bazl.einschraenkungen-drohnen", "Zones géographiques UAS en Suisse / OFAC"),
-        // new GeoAdminLayer("Obstacle a la navigation aerienne","ch.bazl.luftfahrthindernis", "Obstacles à la navigation aérienne / OFAC")
-        // Ajoutez d'autres couches si necessaire      
+        createLayer("Restriction pour drone CH","ch.bazl.einschraenkungen-drohnen", "Zones géographiques UAS en Suisse / OFAC", wmsUrlGeoadmin, attributionUrlGeoadmin, false ),
+        createLayer("Obstacle a la navigation aerienne","ch.bazl.luftfahrthindernis", "Obstacles à la navigation aérienne / OFAC", wmsUrlGeoadmin, attributionUrlGeoadmin, false ),
+        // Ajoutez d'autres couches si necessaire (pas oublier ajouter false dans layerVisibility aussi)      
       ],
 
       // Visibilite des couches 
       layerVisibility : [
-        true,
         false,
-      ],
+        false,
+      ],      
 
+      // TODO : Layer background (meme principe que layers) --> PBL me donne ereur
+      // layersBackground : [
+      //   createLayer("CN","ch.swisstopo.pixelkarte-farbe", "WMTS CarteNationale", wmsUrlGeoadmin, attributionUrlGeoadmin),
+      //   createLayer("SwissSURFACE3D","ch.swisstopo.swisssurface3d-reliefschattierung-multidirektional", "WMTS Relief multidir. issu de SwissSURFACE3D", wmsUrlGeoadmin, attributionUrlGeoadmin),
+      //   createLayer("MO","LCSF,LCSFPROJ,Conduites,SOLI,SOSF,SOPT,Adresses_des_batiments,Nomenclature,Biens_fonds,Biens_fonds_projetes,Limites_territoriales", "WMTS MO", wmsUrlGeodienst, attributionUrlGeodienst),
+      //   createLayer("swissImage","ch.swisstopo.swissimage", "WMTS swissimage", wmsUrlGeoadmin, attributionUrlGeoadmin),
+      // ],
 
-      menuList:[
-        {
-          menuname:"Hello",
-          route:"/"
-        },
-        { 
-          menuname:"Axios",
-          route:"/axios"
-        },
-        { 
-          menuname:"2d_openlayers",
-          route:"/openlayers"
-        },
-        { 
-          menuname:"2d_leaflet",
-          route:"/leaflet"
-        },
-        { 
-          menuname:"3d_cesium",
-          route:"/cesium"
-        }
-      ] 
+      vectorLayer: null, 
     };
   },
   computed: {
@@ -167,9 +142,55 @@ export default {
       return this.$route.path;
     }
   },
+  methods: {
+
+    submit(event) {
+      event.preventDefault();
+      if (flightForm.validateForm()) {
+        this.endDraw()
+        console.log("Formulaire soumis avec succès !");
+      }
+    },
+
+    reset(event){
+      flightForm.resetForm();
+      // this.endDraw();
+      this.endFormular() ;
+      console.log("Formulaire réinitialiser !");
+    },
+
+    startDraw(event) {
+      this.isDrawing = true;
+      console.log("Fonction pour dessiner activer");
+    },
+
+    endFormular(event){
+      this.intialiserFormulaire = true ;
+    },
+
+    endDraw(event) {
+      this.isDrawing = false;
+    },
+
+    showPopup(event) {
+      // this.activPopup = true
+      // this.popupVisible = true; // Afficher la popup
+      this.coordinates = [0,0];
+      this.popupVisible = true;
+    },
+
+    endPopup(event){
+      this.activPopup = false
+    },
+
+        // Méthode pour mettre à jour les coordonnées de la popup
+        updatePopupCoordinates(coordinates) {
+      this.popupCoordinates = coordinates;}
+
+
+  },
   mounted() {
     // initLayer();
-    // initMouseCoord();
     // initFlightZone();   
     // initFlightForm();
   },

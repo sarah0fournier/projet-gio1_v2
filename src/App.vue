@@ -64,7 +64,7 @@
             
           <!-- Couches à cocher -->
           <div class="mt-2 greyBackground border border-dark p-1"> 
-            <ViewChecboxLayer />
+            <ViewChecboxLayer @changed="layersChanged" />
           </div>
           <!-- End Conteneur layers -->
 
@@ -73,7 +73,7 @@
 
       <!-- Right: Contenur map -->
       <div class="col">
-        <ViewMaps> </ViewMaps>
+        <ViewMaps :layers="layers" :layerVisibily="layerVisibily"> </ViewMaps>
           <!-- <div id="map">
               <div id="popup" class="ol-popup"></div>
           </div> -->
@@ -116,6 +116,13 @@ export default {
 
   data(){
     return {
+      layers : [
+
+      ],
+      layerVisibility : [
+        false,
+        false,
+      ],
       menuList:[
         {
           menuname:"Hello",

@@ -27,7 +27,7 @@
   
 <script>
     // import ol from 'ol'; // Importez OpenLayers ici --> fonctione pas !!!!!!!!!!!!
-    import ViewCheckboxLayer from './ViewChecboxLayer.vue';
+    // import ViewCheckboxLayer from './ViewChecboxLayer.vue';
     import ViewFlightZone from './ViewFlightZone.vue';
     //--------------- VARIABLES -----------------  
     // URL de base pour les services WMS
@@ -109,17 +109,21 @@ class BackgroundLayerGeodienste {
    
 export default {
     components: {
-        ViewCheckboxLayer,
+        // ViewCheckboxLayer,
         ViewFlightZone,
     },
-
+    props: {
+        layers,
+        layerVisibility,
+    },
     data() {
       return {
+        map: "TODO",
         layers: {
-        CN : new BackgroundLayerGeoAdmin("CarteNationale", "ch.swisstopo.pixelkarte-farbe", "WMTS CarteNationale / geo.admin.ch"),
-        swissSurface3D : new BackgroundLayerGeoAdmin("SwissSURFACE3D", "ch.swisstopo.swisssurface3d-reliefschattierung-multidirektional", "WMTS Relief multidir. issu de SwissSURFACE3D / geo.admin.ch"),
-        MO : new BackgroundLayerGeodienste("MO", 'LCSF,LCSFPROJ,Conduites,SOLI,SOSF,SOPT,Adresses_des_batiments,Nomenclature,Biens_fonds,Biens_fonds_projetes,Limites_territoriales', "WMTS Relief multidir. issu de SwissSURFACE3D / geo.admin.ch"),
-        swissImage : new BackgroundLayerGeoAdmin("swissImage", "ch.swisstopo.swissimage", "WMTS swissimage / geo.admin.ch"),
+            CN : new BackgroundLayerGeoAdmin("CarteNationale", "ch.swisstopo.pixelkarte-farbe", "WMTS CarteNationale / geo.admin.ch"),
+            swissSurface3D : new BackgroundLayerGeoAdmin("SwissSURFACE3D", "ch.swisstopo.swisssurface3d-reliefschattierung-multidirektional", "WMTS Relief multidir. issu de SwissSURFACE3D / geo.admin.ch"),
+            MO : new BackgroundLayerGeodienste("MO", 'LCSF,LCSFPROJ,Conduites,SOLI,SOSF,SOPT,Adresses_des_batiments,Nomenclature,Biens_fonds,Biens_fonds_projetes,Limites_territoriales', "WMTS Relief multidir. issu de SwissSURFACE3D / geo.admin.ch"),
+            swissImage : new BackgroundLayerGeoAdmin("swissImage", "ch.swisstopo.swissimage", "WMTS swissimage / geo.admin.ch"),
         },
       };
     },    
@@ -133,7 +137,7 @@ export default {
             });
     
             //--------------- INITIALISATION CARTE -----------------  
-           map = new ol.Map({
+            map = new ol.Map({
                 target: "map",
                 layers: [this.layers.CN.getLayer()],
 
@@ -144,18 +148,18 @@ export default {
                     projection: projection,
                     zoom: 8,
                     extent: [232e4, 93e4, 30e5, 145e4]
-            })
+                })
             });
         },
         //--------------- CHANGEMENT LAYER-----------------  
         // Fonction générique pour gérer le changement de visibilité des couches
         changeBackground(layer) {
             Object.values(this.layers).forEach(layer => {
-            map.removeLayer(layer.getLayer());
+                map.removeLayer(layer.getLayer());
             });
     
             if (this.layers[layer]) {
-           map.addLayer(this.layers[layer].getLayer());
+                map.addLayer(this.layers[layer].getLayer());
             }
         },
     },

@@ -8,7 +8,7 @@
     <div>
       <h2>Layers</h2>
       <div v-for="(layer, index) in layers" :key="index">
-        <input type="checkbox" v-model="layer.visible" @change="toggleLayer(layer)">
+        <input type="checkbox" @change="toggleLayer(layer)">
         <label>{{ layer.name }}</label>
       </div>
     </div>
@@ -38,13 +38,12 @@ import { map } from '@/components/views/ViewMaps.vue';
                     params: { layers: layerName },
                     attributions: [`&copy; <a href="${attributionUrlGeoadmin}">${attribution}</a>`]
                 }),
-            opacity: 1,
-            zIndex: -98,
-
+                opacity: 1,
+                zIndex: -98,
             });
 
             // Ajouter la couche à la carte
-            // map.addLayer(this.layer);
+            map.addLayer(this.layer);
         }
 
         getLayer() {
@@ -53,7 +52,7 @@ import { map } from '@/components/views/ViewMaps.vue';
     }
 
     export default {
-
+        // TODO make those layers props
         data() {
             return {
                 layers: [

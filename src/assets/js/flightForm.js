@@ -1,4 +1,4 @@
-function validateForm() {
+export function validateForm() {
     var heightMachine = document.getElementById("heightMachine").value;
     var weightMachine = document.getElementById("weightMachine").value;
 
@@ -28,8 +28,17 @@ function validateForm() {
     return true;
 }
 
+export function resetForm() {
+    // Reinitialiser tous les champs du formulaire
+    document.getElementById("myForm").reset();
+
+    // Reinitialiser le polygone sur la map
+    vectorLayer.getSource().clear();
+}
+
+
 // Fonction qui pourra etre supprimer par la suite c est pour tester formulaire actuelement 
-function printFormData() {
+export function printFormData() {
     // Récupérer les valeurs des champs de formulaire
     var heightMachineValue = document.getElementById("heightMachine").value;
     var weightMachineValue = document.getElementById("weightMachine").value;
@@ -40,20 +49,14 @@ function printFormData() {
 }
 
 
-function resetForm() {
-    // Reinitialiser tous les champs du formulaire
-    document.getElementById("myForm").reset();
+export default function initFlightForm() {
+    function showTooltip() {
+       // Afficher la tooltip
+       document.getElementById("tooltip").style.display = "block";
+   }
 
-    // Reinitialiser le polygone sur la map
-    vectorLayer.getSource().clear();
-}
-
-function showTooltip() {
-    // Afficher la tooltip
-    document.getElementById("tooltip").style.display = "block";
-}
-
-function hideTooltip() {
-    // Masquer la tooltip
-    document.getElementById("tooltip").style.display = "none";
+   function hideTooltip() {
+       // Masquer la tooltip
+       document.getElementById("tooltip").style.display = "none";
+   }
 }

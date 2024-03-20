@@ -108,9 +108,6 @@ import ViewButton from './components/views/ViewButton.vue';
 import ViewChecboxLayer from './components/views/ViewChecboxLayer.vue'; 
 import ViewFlightZone from './components/views/ViewFlightZone.vue'; 
 
-// const wmsUrlGeoadmin = "https://wms.geo.admin.ch/";
-    // URL de base pour les attributions
-// const attributionUrlGeoadmin = "https://www.geo.admin.ch/fr/home.html";
 
 import { wmsUrlGeoadmin, attributionUrlGeoadmin } from './assets/js/constante.js';
 

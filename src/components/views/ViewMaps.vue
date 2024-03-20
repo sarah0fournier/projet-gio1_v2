@@ -168,6 +168,8 @@ export default {
         //     this.map.addLayer(layer);
 
         // }
+
+        
     },
     mounted() {
         // Appelez initMap lors du montage du composant
@@ -176,12 +178,11 @@ export default {
         // Ajouter les layers a la map
         // Pour chaque couche et sa visibilité correspondante
         this.layers.forEach((layer, index) => {
-            // Vérifiez si la couche est visible
-            if (this.layerVisibility[index]) {
-                // Ajoutez la couche à la carte
-                this.map.addLayer(layer);
-            }
+            // Recupere la visibilite de la couche
+            layer.setVisible(this.layerVisibility[index])
+            this.map.addLayer(layer);
         });
+
         },
   };
 

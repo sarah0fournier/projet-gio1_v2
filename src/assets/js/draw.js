@@ -9,8 +9,7 @@ export function BuildUrlApiGeoadmin(layer, polygonCoordinates) {
 
 // Fonction pour envoyer la requête de l'URL et recevoir les données
 export function fetchDataFromURL(url) {
-    // Effectuez la requête HTTP
-    fetch(url)
+    return fetch(url)
         .then(response => {
             if (response.ok) {
                 return response.json(); // Si la réponse est OK, retournez les données JSON
@@ -22,7 +21,9 @@ export function fetchDataFromURL(url) {
             // Appel de la fonction pour afficher les données des zones de vol restreintes
             var listZonesData = displayZoneRestrictionData(data.results);
             console.log(listZonesData)
-            //console.log(data);
+            return listZonesData;
+           
+            
         })
         .catch(error => {
             console.error('Erreur :', error);

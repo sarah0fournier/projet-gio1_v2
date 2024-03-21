@@ -18,10 +18,11 @@
           <a @click="changeBackground('swissimage')" class="w3-bar-item w3-button">swissImage</a>
           <a @click="changeBackground('nothing')" class="w3-bar-item w3-button">-</a>
         </div>
-
-      </div>
-       
     </div>
+
+    <!-- Ajout du composant FutureResults.vue pour afficher les résultats des zones de vol restreintes -->
+    <FutureResults :zonesData="zonesData" />
+  </div>
 </template>
   
 <script>
@@ -32,10 +33,12 @@
     import {BuildUrlApiGeoadmin, fetchDataFromURL, displayZoneRestrictionData } from '../../assets/js/draw.js';
     import initMouseCoord from '../../assets/js/mouseCoord.js'; // File a laisser
 
+    import FutureResults from './FutureResults.vue'; // Import du composant FutureResults.vue
    
 export default {
     components: {
         ViewCheckboxLayer,
+        FutureResults,
     },
     props:{
         layers: Array,
@@ -99,6 +102,7 @@ export default {
     data() {
       return {
         map: null,
+        zonesData: [],
 
         layersBackground: {
             CN : new BackgroundLayerGeoAdmin("CarteNationale", "ch.swisstopo.pixelkarte-farbe", "WMTS CarteNationale / geo.admin.ch"),
@@ -197,26 +201,23 @@ export default {
                     console.log('Coordonnées du polygone dessiné :', coordinates);
                     
                     var url = BuildUrlApiGeoadmin("ch.bazl.einschraenkungen-drohnen", coordinates);
-                    fetchDataFromURL(url);
-
-                    //  ????? Désactiver l'interaction de dessin une fois que le polygone a été dessiné  ?????
-                    // map.removeInteraction(drawInteraction);
-
+                    fetchDataFromURL(url)
+                .then(zonesData => {
+                    // Assurez-vous que les données sont correctement assignées à la propriété zonesData
+                    this.zonesData = zonesData;
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération des données :', error);
                 });
-                this.map.addInteraction(this.draw);
-            }             
-        },
-        //--------------- VIDER FORMULAIRE----------------- 
-        // Reinitialiser le polygone sur la map --> peut pas etre fait dans flightForm ??????
-        viderFormulaireLayer(){
-            if(this.intialiserFormulaire){
-                this.vectorLayer.getSource().clear();
 
-                // TODO : Désactiver l'interaction de dessin quand on soumet le formulaire
-                // this.map.removeInteraction(this.draw);
+            // Désactiver l'interaction de dessin une fois que le polygone a été dessiné
+            this.map.removeInteraction(this.draw);
 
-            }
-        },
+        });
+        this.map.addInteraction(this.draw);
+    }             
+},
+
 
 
     },
@@ -252,5 +253,11 @@ export default {
         top: 1vh;
         right: 1vw;
         width: 90px;
+    }
+     /* Ajoutez une bordure noire au composant "future-results" */
+     .future-results {
+        border: 2px solid black;
+        padding: 10px;
+        margin-top: 20px; /* Pour ajouter un espace entre la carte et le composant des résultats */
     }
 </style>

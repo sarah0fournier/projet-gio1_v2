@@ -20,7 +20,8 @@ export function fetchDataFromURL(url) {
         })
         .then(data => {
             // Appel de la fonction pour afficher les données des zones de vol restreintes
-            displayZoneRestrictionData(data.results);
+            var listZonesData = displayZoneRestrictionData(data.results);
+            console.log(listZonesData)
             //console.log(data);
         })
         .catch(error => {
@@ -49,7 +50,8 @@ export function displayZoneRestrictionData(results) {
 
         // Ajout de l'objet au tableau
         zonesData.push(zoneData);
+    });
         // Affichage du tableau dans la console ou autre traitement que vous souhaitez faire avec les données
-        console.log(zonesData);
+    return zonesData;
         // Faudra les afficher qqpart d'autre 
-    })}
+    }

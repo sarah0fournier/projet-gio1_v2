@@ -1,5 +1,4 @@
 <template>
-
   <div class="container-fluid" id="mainContainer">
 
     <div class="row align-items-start">
@@ -53,7 +52,7 @@
                   <br><br>
 
                   <!-- Boutons -->
-                  <ViewButton buttonText="Soumettre" buttonId="submitBtn" @bouton-click="submit" />
+                  <ViewButton buttonText="Soumettre" buttonId="submitBtn" @bouton-click="submit"/>
                   <ViewButton buttonText="Reinitialiser" buttonId="resetBtn" @bouton-click="reset" />
               </form>
           </div>
@@ -70,12 +69,9 @@
       </div>
 
       <!-- Right: Contenur map -->
-      <div class="col">
-        <ViewMaps :layers="layers" :layerVisibility="layerVisibility" :isDrawing="isDrawing" :vectorLayer="vectorLayer" :intialiserFormulaire="intialiserFormulaire">      
+      <div class="col-9">
+        <ViewMaps :layers="layers" :layerVisibility="layerVisibility" :isDrawing="isDrawing" :intialiserFormulaire="intialiserFormulaire" :isResults="isResults">      
         </ViewMaps>
-          <!-- <div id="map">
-              <div id="popup" class="ol-popup"></div>
-          </div> -->
       </div>
       <!-- End Contenur map --> 
 
@@ -89,7 +85,6 @@
 
 // A traiter 
 // import searchLocation from './assets/js/searchLocation.js'; 
-// import infoClick from './assets/js/infoClick.js'; 
 import * as flightForm from './assets/js/flightForm.js';
 
 
@@ -111,9 +106,9 @@ export default {
 
   data(){
     return {
-      isDrawing : false,
+      isDrawing : false, // Etat change quand on clique sur bouton dessin ou soumettre
       intialiserFormulaire : false,
-
+      
       layers : [
         createLayer("Restriction pour drone CH","ch.bazl.einschraenkungen-drohnen", "Zones géographiques UAS en Suisse / OFAC", wmsUrlGeoadmin, attributionUrlGeoadmin, false ),
         createLayer("Obstacle a la navigation aerienne","ch.bazl.luftfahrthindernis", "Obstacles à la navigation aérienne / OFAC", wmsUrlGeoadmin, attributionUrlGeoadmin, false ),
@@ -134,7 +129,11 @@ export default {
       //   createLayer("swissImage","ch.swisstopo.swissimage", "WMTS swissimage", wmsUrlGeoadmin, attributionUrlGeoadmin),
       // ],
 
-      vectorLayer: null, 
+      // vectorLayer: null, 
+      // draw: null 
+
+      isResults : false, // Etat affichage tbl result
+
     };
   },
   computed: {
@@ -146,7 +145,11 @@ export default {
 
     submit(event) {
       event.preventDefault();
+
+      // console.log(this.draw.getSource().getFeatures().length)
+      // if (flightForm.validateForm(this.draw)) {
       if (flightForm.validateForm()) {
+        this.isResults = true // etat affichage tbl resultat
         this.endDraw()
         console.log("Formulaire soumis avec succès !");
       }
@@ -160,6 +163,10 @@ export default {
     },
 
     startDraw(event) {
+      // Eviter que quand clique sur un bouton sa envoie le formulaire 
+      // Comporetement par defaut du navigateur quand clique sur bouton dans un fomrulaire et d envoyer le formulaire
+      // Solution : event.preventDefault() --> evite envoyer formulaire
+      event.preventDefault();
       this.isDrawing = true;
       console.log("Fonction pour dessiner activer");
     },
@@ -170,23 +177,10 @@ export default {
 
     endDraw(event) {
       this.isDrawing = false;
+      console.log(this.isDrawing)
+      // this.map.removeInteraction(this.draw);
+
     },
-
-    showPopup(event) {
-      // this.activPopup = true
-      // this.popupVisible = true; // Afficher la popup
-      this.coordinates = [0,0];
-      this.popupVisible = true;
-    },
-
-    endPopup(event){
-      this.activPopup = false
-    },
-
-        // Méthode pour mettre à jour les coordonnées de la popup
-        updatePopupCoordinates(coordinates) {
-      this.popupCoordinates = coordinates;}
-
 
   },
   mounted() {

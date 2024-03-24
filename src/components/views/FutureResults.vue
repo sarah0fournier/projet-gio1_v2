@@ -1,7 +1,8 @@
 <template>
-    <div class="future-results">
-      <h2>Résultats des zones de vol restreintes</h2>
-      <table>
+  <div v-if="isResults" class="future-results table-container">
+    <h2 class="results-title">Résultats des zones de vol restreintes</h2>
+    <div class="table-wrapper">
+        <table>
         <thead>
           <tr>
             <th>Zone</th>
@@ -15,7 +16,7 @@
             <th>Téléphone d'authentification</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="table-body-container">
           <tr v-for="(zone, index) in zonesData" :key="index">
             <td>{{ zone.zone_name_fr }}</td>
             <td>{{ zone.zone_restriction_fr }}</td>
@@ -33,12 +34,14 @@
         </tbody>
       </table>
     </div>
+  </div>
   </template>
   
   <script>
   export default {
     props: {
-      zonesData: Array // Propriété pour recevoir les données des zones de vol restreintes
+      zonesData: Array,  // Propriété pour recevoir les données des zones de vol restreintes
+      isResults : Boolean
     }
   }
   </script>
@@ -46,24 +49,49 @@
   <style scoped>
   /* Vos styles CSS ici */
   .future-results {
-    border: 2px solid black;
-    padding: 10px;
-    margin-top: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-    text-align: left;
-  }
-  </style>
+  border: 2px solid black;
+  padding: 10px;
+  margin-top: 20px;
+  height: 400px;
+  overflow-y: auto; 
+}
+
+.results-title {
+  margin-bottom: 10px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.table-wrapper {
+  max-height: 350px; /* Hauteur maximale pour la zone de défilement */
+  overflow-y: auto; /* Activer la barre de défilement verticale si nécessaire */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-align: left;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background-color: #f5f5f5;
+  z-index: 1;
+}
+
+
+
+</style>

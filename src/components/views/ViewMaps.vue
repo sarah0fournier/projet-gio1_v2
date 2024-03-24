@@ -5,7 +5,11 @@
 
 <template>
     <div>
-      <div id="map"></div>
+        <div id="map" :class="{'map-container': isResults, 'full-height-map': !isResults}">
+          <!-- <div id="map"></div> -->
+        </div>
+
+      
       <div class="PositionLayerChange w3-dropdown-hover w3-right">
         <button class="w3-button">
           <img src="/img/map_fond_carte.svg" alt="layers" class="imgLayers" width="50" />
@@ -20,8 +24,17 @@
         </div>
     </div>
 
+    <!-- Popup -->
+    <div>
+        <Popup :coordinates="popupCoordinates" :popupVisible="popupVisible" :resultsPopup="resultsPopup" @close-popup="closePopup" />
+        <ViewButton buttonText="POPUP" buttonId="popupBtn" @bouton-click="togglePopup" class="PositionPopup"/>
+
+        <!-- <Popup :coordinates="popupCoordinates" :popupVisible="popupVisible" :resultsPopup="resultsPopup" @close-popup="closePopup()" /> -->
+        <!-- <ViewButton buttonText="POPUP" buttonId="popupBtn" @bouton-click="togglePopup(isPopup, map)" class="PositionPopup"/> -->
+    </div>
+
     <!-- Ajout du composant FutureResults.vue pour afficher les résultats des zones de vol restreintes -->
-    <FutureResults :zonesData="zonesData" />
+    <FutureResults :zonesData="zonesData" :isResults="isResults"/>
   </div>
 </template>
   
@@ -33,12 +46,21 @@
     import {BuildUrlApiGeoadmin, fetchDataFromURL, displayZoneRestrictionData } from '../../assets/js/draw.js';
     import initMouseCoord from '../../assets/js/mouseCoord.js'; // File a laisser
 
+    // import {togglePopup, setCoord, showPopup, closePopup } from '../../assets/js/popup.js'; 
+
+
     import FutureResults from './FutureResults.vue'; // Import du composant FutureResults.vue
    
+    import Popup from './ViewPopup.vue';
+    import ViewButton from './ViewButton.vue';
+
+
 export default {
     components: {
         ViewCheckboxLayer,
         FutureResults,
+        Popup,
+        ViewButton,
     },
     props:{
         layers: Array,
@@ -47,6 +69,9 @@ export default {
         // layerBackgroundVisibility : Array, 
         isDrawing: Boolean, 
         intialiserFormulaire: Boolean,
+        isResults: Boolean,
+
+        // draw: Object, // obj interaction draw polygon  
     },  
 
     watch: {
@@ -82,9 +107,20 @@ export default {
         
         isDrawing: {
             handler(newValue) {
+                console.log('isDrawing etat ', newValue)
             if (newValue) {
+                // Desactiver les popups quand je dessiner zone de vole
+                this.isPopup = false 
+                this.map.un('click', this.showPopup);
+                this.closePopup()
+
                 this.startDrawingOnMap();
+                console.log('isDrawing etat 2', this.isDrawing)
                 }
+
+            // else {
+            //     this.map.removeInteraction(this.draw);
+            // }
             },
                 immediate: true // Pour déclencher la fonction dès le montage du composant si isDrawing est initialement true
         },
@@ -98,6 +134,18 @@ export default {
                 immediate: true 
         },
 
+        // draw: {
+        //     handler(newDraw) {
+        //         this.createDrawInteraction(this.vectorLayer)  
+
+        //         if (newDraw !== null) {
+        //             console.log('La propriété draw a été modifiée :', newDraw);
+        //             this.createDrawInteraction(this.vectorLayer)  
+        //         }
+        //         console.log('La propriété draw a été modifiée :', newDraw);        
+        //     },
+        //     deep: true 
+        // }, 
     },     
     data() {
       return {
@@ -110,12 +158,19 @@ export default {
             MO : new BackgroundLayerGeodienste("MO", 'LCSF,LCSFPROJ,Conduites,SOLI,SOSF,SOPT,Adresses_des_batiments,Nomenclature,Biens_fonds,Biens_fonds_projetes,Limites_territoriales', "WMTS Relief multidir. issu de SwissSURFACE3D / geo.admin.ch"),
             swissImage : new BackgroundLayerGeoAdmin("swissImage", "ch.swisstopo.swissimage", "WMTS swissimage / geo.admin.ch"),
         },
-        draw: null,
-        drawInteraction: null, 
+        draw: null, // obj interaction draw polygon  
         coordinate: null,
+
+
+        // Gestion POPUP
+        isPopup: false, // bouton popup activer pour cliquer
+        popupCoordinates: [],
+        popupVisible: false, // affichage popup sur la map 
+        resultsPopup:[], // Data du lieu du clique --> regroupe layerS
       };
     },    
     methods: {
+            
         initMap() {
             // --------------- PROJETION -----------------  
             // Projection suisse
@@ -166,6 +221,8 @@ export default {
         },
 
         createDrawInteraction(vectorLayer) {
+            // var draw = ...
+            // this.draw = new ol.interaction.Draw({
             var draw = new ol.interaction.Draw({
                 source: vectorLayer.getSource(),
                 type: 'Polygon'
@@ -186,6 +243,7 @@ export default {
         startDrawingOnMap() {
             console.log('Fonction startDrawingOnMap est lancer')
             if (this.draw) {
+                console.log(this.draw)
                 console.log('Commencer a dessiner')
  
                 // Événement de fin de dessin pour récupérer les coordonnées du polygone
@@ -202,6 +260,7 @@ export default {
                     
                     var url = BuildUrlApiGeoadmin("ch.bazl.einschraenkungen-drohnen", coordinates);
                     fetchDataFromURL(url)
+
                 .then(zonesData => {
                     // Assurez-vous que les données sont correctement assignées à la propriété zonesData
                     this.zonesData = zonesData;
@@ -210,15 +269,83 @@ export default {
                     console.error('Erreur lors de la récupération des données :', error);
                 });
 
-            // Désactiver l'interaction de dessin une fois que le polygone a été dessiné
-            this.map.removeInteraction(this.draw);
+                // Ne sait pas ou mettre, but quand clique sur soumettre plus possible de dessiner : 
+                // Désactiver l'interaction de dessin une fois que le polygone a été dessiné
+                // this.map.removeInteraction(this.draw);
 
-        });
-        this.map.addInteraction(this.draw);
-    }             
-},
+                });
+                this.map.addInteraction(this.draw);
+            } 
+        },
 
+        // ----------- Popup 
+        togglePopup() {
+            // Inversez l'état de la popup
+            this.isPopup =!  this.isPopup
+            console.log("new etat popup : ", this.isPopup)
+            if (this.isPopup) {
+                // Ajouter un gestionnaire d'événement au clic de la carte
+                this.map.on('click', this.showPopup);
+            } else {
+                // Retirer le gestionnaire d'événement au clic de la carte
+                this.map.un('click', this.showPopup);
+            }
+        },
 
+        setCoord(coordinate){
+            // Calculer les coordonnées des coins du rectangle
+            var topLeft = [coordinate[0] - 2.5, coordinate[1] + 2.5];
+            var topRight = [coordinate[0] + 2.5, coordinate[1] + 2.5];
+            var bottomRight = [coordinate[0] + 2.5, coordinate[1] - 2.5];
+            var bottomLeft = [coordinate[0] - 2.5, coordinate[1] - 2.5];
+
+            // Formater les coordonnées pour la requête
+            var rectangleCoordinates = [
+                [topLeft, topRight, bottomRight, bottomLeft, topLeft] // Premier anneau du polygone
+            ];
+
+            console.log('Coordonnées du rectangle :', rectangleCoordinates);
+                        
+            // Vider la liste de resultsPopup --> rinitialise a chaque clique
+            this.resultsPopup = []
+            // Parcourir chaques layers pour afficher les popups
+            this.layers.forEach((layer, index) => {
+
+                // Envoie requete url du layer, si layer est activer
+                if(layer.getVisible()){
+                    var name_layer = layer.getSource().getParams().layers
+                    var url = BuildUrlApiGeoadmin(name_layer, rectangleCoordinates);
+
+                    // Appeler la fonction pour récupérer les données à partir de l'URL
+                    fetchDataFromURL(url)                
+                        .then(resultPopup => {
+                            console.log('Ajouter les resultats de la requete url de la couche : ', name_layer)
+                            this.resultsPopup.push({ name_layer: name_layer, data: resultPopup });
+                        })
+                        .catch(error => {
+                            console.error('Erreur lors de la récupération des données :', error);
+                        });
+                }
+            });
+        }, 
+
+        showPopup(event) {
+            // Récupérer les coordonnées du clic
+            this.popupCoordinates = event.coordinate;
+
+            this.setCoord(this.popupCoordinates)
+
+            // Etat popup devient visible car a qqch a mettre dans popup
+            this.popupVisible = true ;
+
+            // Afficher les coordonnées dans inspecteur pour test
+            console.log(`Coordonnées du clic : Latitude = ${this.popupCoordinates[1]}, Longitude = ${this.popupCoordinates[0]}`);
+        },
+
+        closePopup() {
+            // Quand appuie sur croix popup, elle se ferme
+            this.popupVisible = false; // Mettre popupVisible à false pour pas afficher popup
+        },
 
     },
 
@@ -245,13 +372,33 @@ export default {
 </script>
   
 <style scoped>
-/* Vos styles CSS ici */
+
+    /* Hauteur de la carte lorsqu'isResults est vrai */
+    .map-container {
+    height: 50vh; 
+    }
+
+    /* Hauteur de la carte lorsque isResults est faux */
+    .full-height-map {
+    height: 100vh; 
+    } 
+
+    /* #map {
+    height: 100vh;
+    } */
 
     /* ------   AFFICAHGE COUCHEE   -------- */
     .PositionLayerChange {
         position: absolute;
         top: 1vh;
         right: 1vw;
+        width: 90px;
+    }
+
+    .PositionPopup {
+        position: absolute;
+        top: 1vh;
+        right: 5vw;
         width: 90px;
     }
      /* Ajoutez une bordure noire au composant "future-results" */

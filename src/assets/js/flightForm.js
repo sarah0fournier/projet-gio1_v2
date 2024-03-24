@@ -11,6 +11,11 @@ export function validateForm() {
         missingFields.push("Poids du drone");
     }
 
+    // if (draw == null || draw.getSource().getFeatures().length <= 0){
+    //     missingFields.push("Perimetre zone de vol du drone");
+    // }
+
+
     if (missingFields.length > 0) {
         // Construire le message d'alerte avec les champs manquants
         var alertMessage = "Veuillez remplir les champs suivants :\n";

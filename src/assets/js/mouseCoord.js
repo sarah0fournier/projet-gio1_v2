@@ -7,8 +7,9 @@ export default function initMouseCoord(map){
   const mousePositionControl = new ol.control.MousePosition({
       projection: projectionCode,
       coordinateFormat: ol.coordinate.createStringXY(2)
-    });
-  map.addControl(mousePositionControl);
+    })
+    
+  map.addControl(mousePositionControl)
 
 }
 

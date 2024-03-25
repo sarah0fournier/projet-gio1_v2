@@ -33,12 +33,8 @@
     },
     methods: {
       boutonClick(event) {
-      this.$emit('bouton-click', event);
+        this.$emit('bouton-click', event)
       },
     },
   };
-</script>
-  
-  <style scoped>
-/* Styles pour le composant ViewButton.vue */
-  </style>
+</script> 

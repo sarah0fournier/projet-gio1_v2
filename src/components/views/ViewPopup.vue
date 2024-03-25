@@ -1,9 +1,11 @@
-<!-- TODO : A dapter en fonction de ce qu on veut mettre dans popup -->
+<!-- Vue : Gestion du contenu de la popup -->
 
 <!-- Exemple format resultsPopup -->
-<!-- resultsPopup =[ { name_layer :"ch.bazl.einschraenkungen-drohnen", name : Zones géographiques UAS en Suisse
-                    data [ [zone_name_fr: "CTR BERN", ...], [zone_name_fr: "LSZB Bern-Belp", ...] ] },
-                { name_layer :"ch.bazl.luftfahrthindernis", name : Obstacle a la navigation aerienne
+<!-- resultsPopup =[ { name_layer :"ch.bazl.einschraenkungen-drohnen", 
+                        name : Zones géographiques UAS en Suisse,
+                        data [ [zone_name_fr: "CTR BERN", ...], [zone_name_fr: "LSZB Bern-Belp", ...] ] },
+                { name_layer :"ch.bazl.luftfahrthindernis", 
+                    name : Obstacle a la navigation aerienne
                     data [] },
                 { ... }] -->
 
@@ -46,22 +48,14 @@
 <script>
     export default {
         props: {
-        coordinates: {
-            type: Array,
-            default: () => []
+            coordinates: {
+                type: Array,
+                default: () => []
+            },
+            popupVisible: Boolean, 
+            resultsPopup: [],
         },
 
-        popupVisible: Boolean, 
-        resultsPopup: [],
-        },
-        // data() {
-        //   return {
-        //
-        //   };
-        // },
-        // mounted() {
-        //
-        // },
         methods: {
             closePopup() {
                 this.$emit('close-popup'); // Émettre un événement pour fermer la popup

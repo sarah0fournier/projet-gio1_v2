@@ -5,10 +5,10 @@ export function validateForm() {
     var missingFields = []; // Liste pour stocker les champs non remplis
 
     if (heightMachine == "") {
-        missingFields.push("Hauteur de vol");
+        missingFields.push("Hauteur de vol")
     }
     if (weightMachine == "") {
-        missingFields.push("Poids du drone");
+        missingFields.push("Poids du drone")
     }
 
 
@@ -28,8 +28,6 @@ export function validateForm() {
     }
 
     printFormData()
-
-    // Ajouter une fonction qui peut recuperer les coord du polygone et lancer le ctrl 
     
     return true;
 }
@@ -37,9 +35,6 @@ export function validateForm() {
 export function resetForm() {
     // Reinitialiser tous les champs du formulaire
     document.getElementById("myForm").reset();
-
-    // Reinitialiser le polygone sur la map
-    // vectorLayer.getSource().clear();
 }
 
 

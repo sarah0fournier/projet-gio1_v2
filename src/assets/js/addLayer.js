@@ -1,5 +1,7 @@
 // NE PAS SUPPRIMER !!!!!!!!!!!!!!!!!!!!!!!!!!
 
+import {projectionCode, wmsUrlGeoadmin, wmsUrlGeodienst, attributionUrlGeoadmin, attributionUrlGeodienst } from '../../assets/js/constante.js';
+
 // Function pour definir une couche a ajouter sur la Map (actuellement fonctionne pour layer et non background)
 export function createLayer(name, layerName, attribution, wmsurl, attributionUrl, background = true ) {
     // Par defaut background = True
@@ -25,7 +27,6 @@ export function createLayer(name, layerName, attribution, wmsurl, attributionUrl
     }
 
 
-import {projectionCode, wmsUrlGeoadmin, wmsUrlGeodienst, attributionUrlGeoadmin, attributionUrlGeodienst } from '../../assets/js/constante.js';
 // Classe pour definir les couches sur la map
 export class BackgroundLayerGeoAdmin {
     constructor(name, layerName, attribution) {

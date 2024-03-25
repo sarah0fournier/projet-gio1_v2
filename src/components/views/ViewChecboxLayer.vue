@@ -13,18 +13,17 @@
   
 <script>
 
-    export default {
-        props : ['layers', 'layerVisibility'],
+  export default {
+      props : ['layers', 'layerVisibility'],
 
-        methods: {
+      methods: {
         toggleLayer(layer) {
-            layer.setVisible(!layer.getVisible());
-            // Changer la visibilite de la couche
-            console.log("Toggling layer", layer);
-            // console.log("Layer visibility:", layer.visible);
-            } ,
+          // Changer la visibilite de la couche
+          layer.setVisible(!layer.getVisible())
+          console.log("Toggling layer", layer)
         },
-    };
+      },
+  };
 
 </script>
   

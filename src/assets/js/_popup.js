@@ -1,4 +1,4 @@
-import {BuildUrlApiGeoadmin, fetchDataFromURL, displayZoneRestrictionData } from '../../assets/js/draw.js';
+import {BuildUrlApiGeoadmin, fetchDataFromURL, displayZoneRestrictionData } from './draw.js';
 
 export function togglePopup(isPopup, map) {
     // Inversez l'état de la popup

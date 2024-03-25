@@ -70,7 +70,7 @@
 
       <!-- Right: Contenur map -->
       <div class="col-9">
-        <ViewMaps :layers="layers" :layerVisibility="layerVisibility" :isDrawing="isDrawing" :intialiserFormulaire="intialiserFormulaire" :isResults="isResults">      
+        <ViewMaps :layers="layers" :layerVisibility="layerVisibility" :isDrawing="isDrawing" :isVectorLayer="isVectorLayer" :isResults="isResults" @close-draw="isDrawing = false">      
         </ViewMaps>
       </div>
       <!-- End Contenur map --> 
@@ -95,6 +95,7 @@ import ViewChecboxLayer from './components/views/ViewChecboxLayer.vue';
 
 import { wmsUrlGeoadmin, attributionUrlGeoadmin, wmsUrlGeodienst, attributionUrlGeodienst } from './assets/js/constante.js';
 import {createLayer } from './assets/js/addLayer.js';
+import { isSorted } from 'ol/array';
 
 export default {
   name: 'App-root',
@@ -110,7 +111,7 @@ export default {
       intialiserFormulaire : false,
       
       layers : [
-        createLayer("Restriction pour drone CH","ch.bazl.einschraenkungen-drohnen", "Zones géographiques UAS en Suisse / OFAC", wmsUrlGeoadmin, attributionUrlGeoadmin, false ),
+        createLayer("Zones géographiques UAS en Suisse","ch.bazl.einschraenkungen-drohnen", "Zones géographiques UAS en Suisse / OFAC", wmsUrlGeoadmin, attributionUrlGeoadmin, false ),
         createLayer("Obstacle a la navigation aerienne","ch.bazl.luftfahrthindernis", "Obstacles à la navigation aérienne / OFAC", wmsUrlGeoadmin, attributionUrlGeoadmin, false ),
         // Ajoutez d'autres couches si necessaire (pas oublier ajouter false dans layerVisibility aussi)      
       ],
@@ -130,9 +131,9 @@ export default {
       // ],
 
       // vectorLayer: null, 
-      // draw: null 
 
       isResults : false, // Etat affichage tbl result
+      isVectorLayer : true, 
 
     };
   },
@@ -147,18 +148,32 @@ export default {
       event.preventDefault();
 
       // console.log(this.draw.getSource().getFeatures().length)
+
+      // Verifier que perimetre zone dessiner : 
+      // definir draw comme objet parent afin de pouvoir utiliser dans formulaire au lieu comme state de maps. 
+      // puis faudrait ensuite regarder son contenu avec deep pour voir si il y a des modifications et de envoyer au parent. 
+
       // if (flightForm.validateForm(this.draw)) {
       if (flightForm.validateForm()) {
         this.isResults = true // etat affichage tbl resultat
-        this.endDraw()
+        // this.endDraw() // veut pouvoir dessiner apres avoir soumis formulaire (si veut pas pouvoir dessiner apres avoir soumis form activer cette ligne)
         console.log("Formulaire soumis avec succès !");
       }
     },
 
     reset(event){
+      // Rinitialise hauteur vol / poids du drone
       flightForm.resetForm();
-      // this.endDraw();
-      this.endFormular() ;
+      
+      // Enelver interaction dessin map
+      this.endDraw();
+
+      // Enlever vector layer 
+      this.endVectorLayer()
+      
+      // Enlever tableau resultat 
+      this.endTableau()
+      
       console.log("Formulaire réinitialiser !");
     },
 
@@ -168,19 +183,24 @@ export default {
       // Solution : event.preventDefault() --> evite envoyer formulaire
       event.preventDefault();
       this.isDrawing = true;
-      console.log("Fonction pour dessiner activer");
-    },
+      this.isVectorLayer = true; 
 
-    endFormular(event){
-      this.intialiserFormulaire = true ;
+      console.log("Fonction pour dessiner activer");
     },
 
     endDraw(event) {
       this.isDrawing = false;
-      console.log(this.isDrawing)
-      // this.map.removeInteraction(this.draw);
-
+      console.log('Etat endDraw isDrawing' , this.isDrawing)
     },
+
+    endVectorLayer(event){
+      // Enlever tableau resultat 
+      this.isVectorLayer = false
+    },
+
+    endTableau(event){
+      this.isResults = false
+    }
 
   },
   mounted() {

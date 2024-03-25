@@ -1,9 +1,9 @@
 <!-- TODO : A dapter en fonction de ce qu on veut mettre dans popup -->
 
 <!-- Exemple format resultsPopup -->
-<!-- resultsPopup =[ { name_layer :"ch.bazl.einschraenkungen-drohnen", 
+<!-- resultsPopup =[ { name_layer :"ch.bazl.einschraenkungen-drohnen", name : Zones géographiques UAS en Suisse
                     data [ [zone_name_fr: "CTR BERN", ...], [zone_name_fr: "LSZB Bern-Belp", ...] ] },
-                { name_layer :"ch.bazl.luftfahrthindernis", 
+                { name_layer :"ch.bazl.luftfahrthindernis", name : Obstacle a la navigation aerienne
                     data [] },
                 { ... }] -->
 
@@ -20,16 +20,17 @@
             <!-- Parcourir les layer qui ont ete cocher -->
             <div v-for="(layer, index) in resultsPopup" :key="index" class="popup-content">
                 <!-- Nom du layer -->
-                <h1 class="popup-header-layer"> {{ layer.name_layer }} </h1>
+                <h1 class="popup-header-layer"> {{ layer.name }} </h1>
 
                 <!-- Affiche les popup si elle ont des data -->
                 <div v-if="layer.data.length > 0">
                     <div v-for="(zone, idx) in layer.data" :key="idx" class="popup-content">
                         <div class="popup-header">
-                            <h1>{{ zone.zone_name_fr }}</h1>
+                            <h1>Désignation : {{ zone.zone_name_fr }}</h1>
                         </div>
                         <div class="popup-body">
-                            <p>Zone restriction : {{ zone.zone_restriction_fr }}</p>
+                            <p>Restriction : {{ zone.zone_restriction_fr }}</p> 
+                            <p>Exceptions : {{ zone.zone_message_fr }}</p>
                         </div>
                     </div>
                 </div>

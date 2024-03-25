@@ -68,10 +68,10 @@ export default {
         // layersBackground: Array,
         // layerBackgroundVisibility : Array, 
         isDrawing: Boolean, 
-        intialiserFormulaire: Boolean,
         isResults: Boolean,
 
         // draw: Object, // obj interaction draw polygon  
+        isVectorLayer: Boolean, 
     },  
 
     watch: {
@@ -108,31 +108,37 @@ export default {
         isDrawing: {
             handler(newValue) {
                 console.log('isDrawing etat ', newValue)
-            if (newValue) {
-                // Desactiver les popups quand je dessiner zone de vole
-                this.isPopup = false 
-                this.map.un('click', this.showPopup);
-                this.closePopup()
+                if (newValue) {
+                    console.log('rentrer dans newValue ', newValue)
+                    // Desactiver les popups quand je dessiner zone de vole
+                    this.isPopup = false 
+                    this.map.un('click', this.showPopup);
+                    this.closePopup()
 
-                this.startDrawingOnMap();
-                console.log('isDrawing etat 2', this.isDrawing)
+                    this.startDrawingOnMap();
+                    console.log('isDrawing etat 2', this.isDrawing)
                 }
-
-            // else {
-            //     this.map.removeInteraction(this.draw);
-            // }
+                // Eneleve interaction map si isDrawing est false
+                else {
+                    console.log('rentrer dans newValue false ', newValue)
+                    this.map.removeInteraction(this.draw);
+                }
             },
-                immediate: true // Pour déclencher la fonction dès le montage du composant si isDrawing est initialement true
+                deep: true // Pas immediate car doit avoir map initialiser
         },
 
-        intialiserFormulaire: {
+        isVectorLayer: {
             handler(newValue) {
-            if (newValue) {
-                this.viderFormulaireLayer();
+                console.log('Etat de isVectorLayer : ', newValue)
+            if (!newValue) {
+                // Supprime le layer de la zone de vol 
+                this.vectorLayer.getSource().clear();
+                console.log('Layer permietre vol delete')
                 }
             },
-                immediate: true 
+                deep: true 
         },
+
 
         // draw: {
         //     handler(newDraw) {
@@ -159,6 +165,7 @@ export default {
             swissImage : new BackgroundLayerGeoAdmin("swissImage", "ch.swisstopo.swissimage", "WMTS swissimage / geo.admin.ch"),
         },
         draw: null, // obj interaction draw polygon  
+        vectorLayer: null,
         coordinate: null,
 
 
@@ -167,6 +174,7 @@ export default {
         popupCoordinates: [],
         popupVisible: false, // affichage popup sur la map 
         resultsPopup:[], // Data du lieu du clique --> regroupe layerS
+
       };
     },    
     methods: {
@@ -213,11 +221,12 @@ export default {
         //--------------- DRAW----------------- 
         // TODO : Ajouter fct dans un File.js separer fonction pour envoyer requete (POSTRequest, GetRequest,...) 
         createVectorLayer() {
-            var vectorLayer = new ol.layer.Vector({
+            // var vectorLayer
+            this.vectorLayer = new ol.layer.Vector({
                 source: new ol.source.Vector()
             });
-            this.map.addLayer(vectorLayer);
-            this.vectorLayer = vectorLayer;
+            this.map.addLayer(this.vectorLayer);
+            // this.vectorLayer = vectorLayer;
         },
 
         createDrawInteraction(vectorLayer) {
@@ -231,9 +240,15 @@ export default {
         },
 
         initLayerDraw(){
+            // if (this.isVectorLayer){
+            //     this.createVectorLayer();
+            // this.createDrawInteraction(this.vectorLayer); // Ajoutez cette ligne
+            // }
+
             this.createVectorLayer();
             this.createDrawInteraction(this.vectorLayer); // Ajoutez cette ligne
 
+  
             //  ????? Attacher l'écouteur d'événements une fois que le bouton est rendu  ?????
             // this.$nextTick(() => {
             //     this.startDrawingOnClick();
@@ -283,14 +298,27 @@ export default {
             // Inversez l'état de la popup
             this.isPopup =!  this.isPopup
             console.log("new etat popup : ", this.isPopup)
+
             if (this.isPopup) {
+                this.endDraw = false
+
+                // Modifier parent isDrawing
+                this.closeDraw()
+                
                 // Ajouter un gestionnaire d'événement au clic de la carte
                 this.map.on('click', this.showPopup);
+
             } else {
                 // Retirer le gestionnaire d'événement au clic de la carte
                 this.map.un('click', this.showPopup);
             }
         },
+
+        closeDraw(){
+            // endDraw --> car pbl isDrawing props (parent) mais isPopup est un enfant. Passer par un evenement pour modifier le parent de l enfant.
+            // Donc j avertis le parent de envement "close-draw" que quand appeler il doit changer etat
+            this.$emit('close-draw')
+        }, 
 
         setCoord(coordinate){
             // Calculer les coordonnées des coins du rectangle
@@ -314,13 +342,14 @@ export default {
                 // Envoie requete url du layer, si layer est activer
                 if(layer.getVisible()){
                     var name_layer = layer.getSource().getParams().layers
+                    var name = layer.getSource().getParams().name
                     var url = BuildUrlApiGeoadmin(name_layer, rectangleCoordinates);
 
                     // Appeler la fonction pour récupérer les données à partir de l'URL
                     fetchDataFromURL(url)                
                         .then(resultPopup => {
                             console.log('Ajouter les resultats de la requete url de la couche : ', name_layer)
-                            this.resultsPopup.push({ name_layer: name_layer, data: resultPopup });
+                            this.resultsPopup.push({ name_layer: name_layer, name : name, data: resultPopup });
                         })
                         .catch(error => {
                             console.error('Erreur lors de la récupération des données :', error);

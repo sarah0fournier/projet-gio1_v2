@@ -14,11 +14,21 @@
 <script>
 
   export default {
+      /**
+       * Composant pour gérer les cases à cocher des couches et leur visibilité sur la carte.
+       * @component
+       * @prop {Array} layers - La liste des couches à afficher.
+       * @prop {Object} layerVisibility - L'état de visibilité actuel des couches.
+       * @method toggleLayer - Méthode pour basculer la visibilité d'une couche.
+      */
       props : ['layers', 'layerVisibility'],
 
       methods: {
+        /**
+         * Bascule la visibilité d'une couche lorsqu'une case à cocher est cochée ou décochée.
+         * @param {Object} layer - La couche à basculer.
+        */
         toggleLayer(layer) {
-          // Changer la visibilite de la couche
           layer.setVisible(!layer.getVisible())
           console.log("Toggling layer", layer)
         },

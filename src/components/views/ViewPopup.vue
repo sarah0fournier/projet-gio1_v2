@@ -1,14 +1,5 @@
 <!-- Vue : Gestion du contenu de la popup -->
 
-<!-- Exemple format resultsPopup -->
-<!-- resultsPopup =[ { name_layer :"ch.bazl.einschraenkungen-drohnen", 
-                        name : Zones géographiques UAS en Suisse,
-                        data [ [zone_name_fr: "CTR BERN", ...], [zone_name_fr: "LSZB Bern-Belp", ...] ] },
-                { name_layer :"ch.bazl.luftfahrthindernis", 
-                    name : Obstacle a la navigation aerienne
-                    data [] },
-                { ... }] -->
-
 <template>
     <div v-if="popupVisible" class="popup">
 
@@ -47,6 +38,23 @@
   
 <script>
     export default {
+        /**
+         * Composant pour gérer le contenu de la popup.
+         * @component
+         * @prop {Array} coordinates - Les coordonnées de la popup.
+         * @prop {boolean} popupVisible - Indique si la popup est visible ou non.
+         * @prop {Array} resultsPopup - Les résultats de la popup.
+             * Exemple format resultsPopup 
+                * resultsPopup =[ { name_layer :"ch.bazl.einschraenkungen-drohnen", 
+                                    name : Zones géographiques UAS en Suisse,
+                                    data [ [zone_name_fr: "CTR BERN", ...], [zone_name_fr: "LSZB Bern-Belp", ...] ] },
+                                { name_layer :"ch.bazl.luftfahrthindernis", 
+                                    name : Obstacle a la navigation aerienne
+                                    data [] },
+                                { ... }]
+         * @method closePopup - Méthode pour fermer la popup.
+        */
+        
         props: {
             coordinates: {
                 type: Array,
@@ -57,6 +65,9 @@
         },
 
         methods: {
+            /**
+             * Ferme la popup.
+            */
             closePopup() {
                 this.$emit('close-popup'); // Émettre un événement pour fermer la popup
             }
@@ -65,6 +76,7 @@
 </script>
   
 <style scoped>
+    /* Styles CSS */
     .popup {
         position: absolute;
         top: 20vh;

@@ -14,6 +14,16 @@
   
 <script>
   export default {
+    /**
+     * Composant bouton générique.
+     * @component
+     * @prop {String} buttonText - Le texte à afficher sur le bouton.
+     * @prop {String} buttonId - L'identifiant unique du bouton.
+     * @prop {String} [buttonImage] - Le chemin de l'image à afficher sur le bouton (facultatif).
+     * @prop {String} [imageSize='50px'] - La taille de l'image (par défaut '50px').
+     * @event bouton-click - Événement émis lors du clic sur le bouton.
+    */
+
     props: {
         buttonText: {
             type: String,
@@ -24,14 +34,19 @@
             required: true
         },
         buttonImage: {
-            type: String // Chemin de l'image, facultatif
+            type: String 
         },
         imageSize: {
             type: String,
-            default: '50px' // Taille de l'image par défaut
+            default: '50px' 
         }
     },
     methods: {
+      /**
+       * Gère le clic sur le bouton en émettant un événement.
+       * @param {Event} event - L'événement de clic.
+      */
+     
       boutonClick(event) {
         this.$emit('bouton-click', event)
       },

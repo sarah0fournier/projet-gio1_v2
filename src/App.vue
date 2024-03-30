@@ -106,6 +106,18 @@ export default {
   },
 
   data(){
+    /**
+     * État de l'application.
+     * @typedef {Object} AppState
+     * @property {boolean} isDrawing - Indique si le dessin de la zone de vol est en cours.
+     * @property {boolean} intialiserFormulaire - Indique si le formulaire est initialisé.
+     * @property {Array<Object>} layers - Liste des couches de la carte.
+     * @property {Array<boolean>} layerVisibility - Visibilité des couches de la carte.
+     * @property {boolean} isResults - Indique si le tableau de résultats est affiché.
+     * @property {boolean} isVectorLayer - Indique si la couche vectorielle est activée.
+     * @returns {AppState} État initial de l'application.
+    */
+    
     return {
       isDrawing : false, // Etat change quand on clique sur bouton dessin ou soumettre
       intialiserFormulaire : false,
@@ -145,6 +157,10 @@ export default {
   methods: {
 
     submit(event) {
+      /**
+       * Méthode pour soumettre le formulaire.
+       * @param {Event} event - L'événement de soumission du formulaire.
+      */
       event.preventDefault();
 
       // console.log(this.draw.getSource().getFeatures().length)
@@ -162,6 +178,10 @@ export default {
     },
 
     reset(event){
+      /**
+       * Méthode pour réinitialiser le formulaire.
+       * @param {Event} event - L'événement de réinitialisation du formulaire.
+      */
       // Rinitialise hauteur vol / poids du drone
       flightForm.resetForm();
       
@@ -178,6 +198,11 @@ export default {
     },
 
     startDraw(event) {
+    /**
+     * Méthode pour commencer le dessin de la zone de vol.
+     * @param {Event} event - L'événement de démarrage du dessin.
+    */
+
       // Eviter que quand clique sur un bouton sa envoie le formulaire 
       // Comporetement par defaut du navigateur quand clique sur bouton dans un fomrulaire et d envoyer le formulaire
       // Solution : event.preventDefault() --> evite envoyer formulaire
@@ -189,16 +214,29 @@ export default {
     },
 
     endDraw(event) {
+      /**
+       * Méthode pour arrêter le dessin de la zone de vol.
+       * @param {Event} event - L'événement d'arrêt du dessin.
+      */
       this.isDrawing = false;
       console.log('Etat endDraw isDrawing' , this.isDrawing)
     },
 
     endVectorLayer(event){
+      /**
+       * Méthode pour désactiver la couche vectorielle.
+       * @param {Event} event - L'événement de désactivation de la couche vectorielle.
+      */
+
       // Enlever tableau resultat 
       this.isVectorLayer = false
     },
 
     endTableau(event){
+      /**
+       * Méthode pour désactiver l'affichage du tableau de résultats.
+       * @param {Event} event - L'événement de désactivation du tableau de résultats.
+      */
       this.isResults = false
     }
 

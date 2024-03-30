@@ -45,6 +45,11 @@
     
 <script>
     export default {
+        /**
+         * @prop {Array} resultsDatasPerimetre - Données des zones de vol restreintes.
+         * @prop {Boolean} isResults - Indique si les résultats sont disponibles ou non.
+        */
+
       props: {
         resultsDatasPerimetre: Array,  // Propriete pour recevoir les données des zones de vol restreintes
         isResults : Boolean,

@@ -1,4 +1,9 @@
 export function validateForm() {
+    /**
+     * Valide le formulaire de saisie de données de vol.
+     * @returns {boolean} true si le formulaire est valide et false sinon.
+    */
+
     var heightMachine = document.getElementById("heightMachine").value;
     var weightMachine = document.getElementById("weightMachine").value;
 
@@ -33,13 +38,20 @@ export function validateForm() {
 }
 
 export function resetForm() {
-    // Reinitialiser tous les champs du formulaire
+    /**
+     * Réinitialise le formulaire de saisie de données de vol.
+    */
+    
     document.getElementById("myForm").reset();
 }
 
 
 // Fonction qui pourra etre supprimer par la suite c est pour tester formulaire actuelement 
 export function printFormData() {
+    /**
+     * Affiche les données du formulaire de vol dans la console.
+    */
+
     // Récupérer les valeurs des champs de formulaire
     var heightMachineValue = document.getElementById("heightMachine").value;
     var weightMachineValue = document.getElementById("weightMachine").value;
@@ -51,13 +63,23 @@ export function printFormData() {
 
 
 export default function initFlightForm() {
+    /**
+     * Initialise le formulaire de vol en configurant les gestionnaires d'événements pour afficher/masquer la tooltip.
+    */
+    
     function showTooltip() {
-       // Afficher la tooltip
-       document.getElementById("tooltip").style.display = "block";
+        /**
+         * Affiche la tooltip.
+        */
+
+        document.getElementById("tooltip").style.display = "block";
    }
 
    function hideTooltip() {
-       // Masquer la tooltip
-       document.getElementById("tooltip").style.display = "none";
+        /**
+         * Masque la tooltip.
+        */
+       
+        document.getElementById("tooltip").style.display = "none";
    }
 }

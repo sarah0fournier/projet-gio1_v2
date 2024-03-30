@@ -1,14 +1,25 @@
 // NE PAS SUPPRIMER !!!!!!!!!!!!!!!!!!!!!!!!!!
 
-// Fonction pour construire l'URL de requête vers le serveur API map geo admin
 export function BuildUrlApiGeoadmin(layer, polygonCoordinates) {
+    /**
+     * Construit l'URL de requête vers le serveur API Map GeoAdmin.
+     * @param {string} layer - Le calque à interroger.
+     * @param {Array} polygonCoordinates - Les coordonnées du polygone à interroger.
+     * @returns {string} L'URL de requête construite.
+    */
+
     var url = "https://api3.geo.admin.ch/rest/services/api/MapServer/identify?geometryType=esriGeometryPolygon&geometry=" + encodeURIComponent(JSON.stringify({ "rings": polygonCoordinates })) + "&layers=all:" + encodeURIComponent(layer) + "&geometryFormat=geojson&sr=2056&tolerance=0";
     //console.log("URL de la requête:", url);
     return url;
 }
 
-// Fonction pour envoyer la requête de l'URL et recevoir les données
 export function fetchDataFromURL(url) {
+    /**
+     * Envoie une requête à l'URL spécifiée et récupère les données.
+     * @param {string} url - L'URL de la requête.
+     * @returns {Promise} Une promesse résolue avec les données récupérées.
+    */
+
     return fetch(url)
         .then(response => {
             if (response.ok) {
@@ -31,6 +42,12 @@ export function fetchDataFromURL(url) {
 }
 
 export function displayZoneRestrictionData(results) {
+    /**
+     * Affiche les données des zones de vol restreintes.
+     * @param {Array} results - Les résultats de la requête.
+     * @returns {Array} Les données des zones de vol restreintes.
+    */
+
     // Variable pour stocker les données des zones de vol restreintes
     var zonesData = [];
 

@@ -50,6 +50,23 @@
 
 
     export default {
+        /**
+         * Composant pour la gestion de la carte, le choix du fond de carte et l'initialisation de la carte.
+         * @component
+         * @prop {Array} layers - Les couches de la carte.
+         * @prop {Array} layerVisibility - La visibilité des couches.
+         * @prop {boolean} isDrawing - Indique si le dessin est en cours ou non.
+         * @prop {boolean} isResults - Indique si les résultats sont affichés ou non.
+         * @prop {boolean} isVectorLayer - Indique si la couche vectorielle est activée ou non.
+         * @method changeBackground - Méthode pour changer le fond de carte.
+         * @method startDrawingOnMap - Méthode pour commencer le dessin sur la carte.
+         * @method togglePopup - Méthode pour afficher ou masquer la popup.
+         * @method closeDraw - Méthode pour fermer le dessin.
+         * @method setCoord - Méthode pour définir les coordonnées.
+         * @method showPopup - Méthode pour afficher la popup.
+         * @method closePopup - Méthode pour fermer la popup.
+        */
+
         components: {
             ViewCheckboxLayer,
             Popup,
@@ -163,6 +180,10 @@
         methods: {
             
             initMap() {
+                /**
+                 * Initialise la carte.
+                */
+
                 // --------------- PROJETION -----------------  
                 // Projection suisse
                 const projection = new ol.proj.Projection({
@@ -188,8 +209,11 @@
             },
 
             //--------------- CHANGEMENT LAYER-----------------  
-            // Fonction générique pour gérer le changement de visibilité des couches
             changeBackground(layer) {
+                /**
+                 * Change le fond de carte (gere la visibiliter des couches).
+                 * @param {string} layer - Le nom de la couche à changer.
+                */
                 Object.values(this.layersBackground).forEach(layer => {
                 this.map.removeLayer(layer.getLayer())
                 })
@@ -203,6 +227,10 @@
             //--------------- DRAW----------------- 
             // TODO : Ajouter fct dans un File.js separer fonction pour envoyer requete (POSTRequest, GetRequest,...) 
             createVectorLayer() {
+                /**
+                 * Crée une nouvelle couche vectorielle.
+                */
+                
                 // var vectorLayer
                 this.vectorLayer = new ol.layer.Vector({
                     source: new ol.source.Vector()
@@ -212,6 +240,12 @@
             },
 
             createDrawInteraction(vectorLayer) {
+                /**
+                 * Crée une nouvelle interaction de dessin.
+                 * @method
+                 * @param {ol.layer.Vector} vectorLayer - La couche vectorielle pour l'interaction de dessin.
+                */
+
                 // var draw = ...
                 // this.draw = new ol.interaction.Draw({
                 var draw = new ol.interaction.Draw({
@@ -222,6 +256,10 @@
             },
 
             initLayerDraw(){
+                /**
+                 * Initialise la couche vectorielle et l'interaction de dessin.
+                */
+
                 this.createVectorLayer()
                 this.createDrawInteraction(this.vectorLayer)
 
@@ -232,6 +270,9 @@
             },
     
             startDrawingOnMap() {
+                /**
+                 * Commence le dessin sur la carte.
+                */
                 console.log('Fonction startDrawingOnMap est lancer')
                 if (this.draw) {
                     console.log('Commencer a dessiner')
@@ -283,6 +324,10 @@
 
             // ----------- Popup 
             togglePopup() {
+                /**
+                 * Affiche ou masque la popup.
+                */
+
                 // Inversez l'état de la popup
                 this.isPopup =!  this.isPopup
 
@@ -302,12 +347,21 @@
             },
 
             closeDraw(){
+                /**
+                 * Ferme le dessin.
+                */
+
                 // endDraw --> car pbl isDrawing props (parent) mais isPopup est un enfant. Passer par un evenement pour modifier le parent de l enfant.
                 // Donc j avertis le parent de envement "close-draw" que quand appeler il doit changer etat
                 this.$emit('close-draw')
             }, 
 
             setCoord(coordinate){
+                /**
+                 * Définit les coordonnées.
+                 * @param {Array} coordinate - Les coordonnées à définir.
+                */
+                
                 // Calculer les coordonnees des coins du rectangle
                 // 2.5 choix fixer par nous (precision du clic)
                 var topLeft = [coordinate[0] - 2.5, coordinate[1] + 2.5]
@@ -349,6 +403,11 @@
             }, 
 
             showPopup(event) {
+                /**
+                 * Affiche la popup.
+                 * @param {Event} event - L'événement de clic.
+                */
+
                 // Récupérer les coordonnées du clic
                 this.popupCoordinates = event.coordinate
 
@@ -360,8 +419,12 @@
                 // console.log(`Coordonnées du clic : Est = ${this.popupCoordinates[1]}, Nord = ${this.popupCoordinates[0]}`);
             },
 
+
             closePopup() {
-                // Quand on appuie sur croix popup, elle se ferme (popup ne s affiche pas)
+                /**
+                 * Ferme la popup.- Quand on appuie sur croix popup, elle se ferme (popup ne s affiche pas)
+                */
+
                 this.popupVisible = false
             },
 

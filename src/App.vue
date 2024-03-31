@@ -92,7 +92,7 @@ import ViewMaps from './components/views/ViewMaps.vue';
 import ViewButton from './components/views/ViewButton.vue';
 import ViewChecboxLayer from './components/views/ViewChecboxLayer.vue'; 
 
-import { wmsUrlGeoadmin, attributionUrlGeoadmin, wmsUrlGeodienst, attributionUrlGeodienst } from './assets/js/constante.js';
+import { wmsUrlGeoadmin, attributionUrlGeoadmin } from './assets/js/constante.js';
 import {createLayer } from './assets/js/addLayer.js';
 
 export default {

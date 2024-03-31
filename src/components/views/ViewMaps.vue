@@ -1,8 +1,5 @@
 <!-- Vue : Gestion de la map, choix fond de carte et initialisation de la map -->
 
-<!-- TODO : SwissImage fonctionne pas ? Adapter Background sur principe de layer-->
-<!-- TODO : Deplacer function / classe pour creer layer dans fichier js-->
-
 <template>
     <div>
         <div id="map" :class="{'map-container': isResults, 'full-height-map': !isResults}">
@@ -76,26 +73,22 @@
         props:{
             layers: Array,
             layerVisibility: Array,
-            // layersBackground: Array,
-            // layerBackgroundVisibility : Array, 
             isDrawing: Boolean, 
             isResults: Boolean,
-
-            // draw: Object, // obj interaction draw polygon  
             isVectorLayer: Boolean, 
         },  
 
         watch: {
             layerVisibility: {
                 handler(newVal) {
-                    console.log(`ViewMaps.vue : layerVisibility changed to ${newVal}`)
+                    // console.log(`ViewMaps.vue : layerVisibility changed to ${newVal}`)
                     // Pour chaque couche et sa visibilite correspondante
                     this.layers.forEach((layer, index) => {
 
                         // Verifiez si la couche est visible
                         if (newVal[index]) {
                             // Ajoutez la couche à la carte
-                            console.log(`ViewMaps.vue : adding layer`, layer)
+                            // console.log(`ViewMaps.vue : adding layer`, layer)
                             layer.setVisible(true)
                         } 
                         else {
@@ -106,21 +99,9 @@
                 },
                 deep: true,
             },
-        // Si met pas ce truc de watch il met que layersBackground est indefini. Props ont pas eu le temps d etre tous charge avant que layersBackground soit utiliser.
-        // layersBackground: {
-        //     immediate: true,
-        //     handler(newVal) {
-        //         if (newVal && newVal.length > 0 && !this.map) {
-        //             // Initialisez la carte avec la première couche
-        //             this.initMap(newVal[0]);
-        //         };
-        //     },
-        //     deep: true,
-        // },
         
             isDrawing: {
                 handler(newValue) {
-                    console.log('isDrawing etat ', newValue)
                     if (newValue) {
 
                         // Desactiver la gestion des popups et de ses evenements quand on dessine la zone de vol
@@ -144,7 +125,7 @@
                     if (!newValue) {
                         // Supprimer le layer de la zone de vol 
                         this.vectorLayer.getSource().clear();
-                        console.log('La couche du permietre de vol est supprimer.')
+                        // console.log('La couche du permietre de vol est supprimer.')
                     }
                 },
                 deep: true 
@@ -195,7 +176,6 @@
                 this.map = new ol.Map({
                     target: "map",
                     layers: [this.layersBackground.CN.getLayer()],
-                    // layers: [layer],
                         
                     //--------------- VUE-----------------  
                     // Définition de la vue de la carte
@@ -225,13 +205,11 @@
             },
 
             //--------------- DRAW----------------- 
-            // TODO : Ajouter fct dans un File.js separer fonction pour envoyer requete (POSTRequest, GetRequest,...) 
             createVectorLayer() {
                 /**
                  * Crée une nouvelle couche vectorielle.
                 */
                 
-                // var vectorLayer
                 this.vectorLayer = new ol.layer.Vector({
                     source: new ol.source.Vector()
                 });
@@ -246,8 +224,6 @@
                  * @param {ol.layer.Vector} vectorLayer - La couche vectorielle pour l'interaction de dessin.
                 */
 
-                // var draw = ...
-                // this.draw = new ol.interaction.Draw({
                 var draw = new ol.interaction.Draw({
                     source: vectorLayer.getSource(),
                     type: 'Polygon'
@@ -262,20 +238,15 @@
 
                 this.createVectorLayer()
                 this.createDrawInteraction(this.vectorLayer)
-
-                //  ????? Attacher l'écouteur d'événements une fois que le bouton est rendu  ?????
-                // this.$nextTick(() => {
-                //     this.startDrawingOnClick();
-                // });
             },
     
             startDrawingOnMap() {
                 /**
                  * Commence le dessin sur la carte.
                 */
-                console.log('Fonction startDrawingOnMap est lancer')
+                // console.log('Fonction startDrawingOnMap est lancer')
                 if (this.draw) {
-                    console.log('Commencer a dessiner')
+                    // console.log('Commencer a dessiner')
 
                     // Événement de fin de dessin pour récupérer les coordonnées du polygone
                     this.draw.on("drawend", (event) => {
@@ -287,7 +258,7 @@
                         var feature = event.feature;
                         var geometry = feature.getGeometry();
                         var coordinates = geometry.getCoordinates();
-                        console.log('Coordonnées du polygone dessiné :', coordinates);
+                        // console.log('Coordonnées du polygone dessiné :', coordinates);
 
                         // Vider la liste de resultsDatasPerimetre --> rinitialise a chaque clique
                         this.resultsDatasPerimetre = []
@@ -304,7 +275,7 @@
                                 // Appeler la fonction pour récupérer les données à partir de l'URL
                                 fetchDataFromURL(url)                
                                     .then(resultDataPerimetre => {
-                                        console.log('Ajouter les resultats de la requete url de la couche : ', name_layer)
+                                        // console.log('Ajouter les resultats de la requete url de la couche : ', name_layer)
                                         this.resultsDatasPerimetre.push({ name_layer: name_layer, 
                                                                         name : layer.getSource().getParams().name, 
                                                                         data: resultDataPerimetre });
@@ -332,7 +303,6 @@
                 this.isPopup =!  this.isPopup
 
                 if (this.isPopup) {
-                    this.endDraw = false
 
                     // Modifier parent isDrawing
                     this.closeDraw()
@@ -350,9 +320,6 @@
                 /**
                  * Ferme le dessin.
                 */
-
-                // endDraw --> car pbl isDrawing props (parent) mais isPopup est un enfant. Passer par un evenement pour modifier le parent de l enfant.
-                // Donc j avertis le parent de envement "close-draw" que quand appeler il doit changer etat
                 this.$emit('close-draw')
             }, 
 
@@ -374,7 +341,7 @@
                     [topLeft, topRight, bottomRight, bottomLeft, topLeft] // Premier anneau du polygone
                 ];
 
-                console.log('Coordonnées du rectangle :', rectangleCoordinates);
+                // console.log('Coordonnées du rectangle :', rectangleCoordinates);
                             
                 // Vider la liste de resultsPopup --> rinitialise a chaque clique
                 this.resultsPopup = []
@@ -387,9 +354,10 @@
                         var url = BuildUrlApiGeoadmin(name_layer, rectangleCoordinates);
 
                         // Appeler la fonction pour récupérer les données à partir de l'URL
+                        // Pbl : Gere que le cas de restriction drone car a formater reponse pour ch.bazl.einschraenkungen-drohnen
                         fetchDataFromURL(url)                
                             .then(resultPopup => {
-                                console.log('Ajouter les resultats de la requete url de la couche : ', name_layer)
+                                // console.log('Ajouter les resultats de la requete url de la couche : ', name_layer)
                                 this.resultsPopup.push({ name_layer: name_layer, 
                                                         name : layer.getSource().getParams().name, 
                                                         data: resultPopup });
@@ -465,24 +433,42 @@
         height: 100vh; 
     } 
 
-    /* ------   AFFICAHGE COUCHEE   -------- */
+    /* ------   AFFICAHGE ICONE   -------- */
     .PositionLayerChange {
         position: absolute;
-        top: 1vh;
+        top: 5vh;
         right: 1vw;
         width: 90px;
     }
 
     .PositionPopup {
         position: absolute;
-        top: 1vh;
-        right: 5vw;
+        top: 15vh;
+        right: 2vw;
         width: 90px;
     }
-     /* Ajoutez une bordure noire au composant "future-results" */
-     .future-results {
-        border: 2px solid black;
-        padding: 10px;
-        margin-top: 20px; /* Pour ajouter un espace entre la carte et le composant des résultats */
+
+
+    /* ----- Bouton changement layer */
+    /* #changeMapSelection {
+        position: absolute;
+        right: 20px;
+        top: 50px;
+    } */
+
+    /* #changeMapButton {
+        border-style: solid;
+        border-width: 1px;
+        border-color: black;
+        padding: 5px;
+        height: 50px;
+        width: 50px;
     }
+
+    #imgchangeMap {
+        width: 40px;
+        height: 40px;
+    } */
+
+    /* ----- End : Bouton changement layer */
 </style>

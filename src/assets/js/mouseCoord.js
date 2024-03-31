@@ -1,4 +1,3 @@
-// NE PAS SUPPRIMER !!!!!!!!!!!!!!!!!!!!!!!!!!
 import {projectionCode} from '../../assets/js/constante.js';
 
 

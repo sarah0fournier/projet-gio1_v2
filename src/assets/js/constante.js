@@ -1,4 +1,3 @@
-// NE PAS SUPPRIMER !!!!!!!!!!!!!!!!!!!!!!!!!!
 
 // Layers venant de map.geo.admin
 // URL de base pour les services WMS

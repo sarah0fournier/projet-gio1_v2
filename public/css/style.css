@@ -1,44 +1,4 @@
-
-
-
-#menu {
-    height: 100vh;
-}
-
-
-/* ----- Bouton dessiner polygone */
-#drawSelection {
-    position: absolute;
-    right: 20px;
-    top: 50px;
-}
-
-#startDrawingButton {
-    /* background-color: #ffffff; */
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-    padding: 5px;
-    height: 50px;
-    width: 50px;
-}
-
-#imgDraw {
-    width: 40px;
-    height: 40px;
-}
-
-/* ----- End : Bouton dessiner polygone */
-
-/* Style pour l'icône d'information */
-.info-icon {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background-image: url('https://image.flaticon.com/icons/png/128/565/565261.png');
-    background-size: cover;
-    cursor: pointer;
-}
+/* TODO : A SUPPRIMER QUAND NG A FINI BARRE RECHERCHE */
 
 /* ----- Bouton barre de recherche */
 #scrollable-dropdown-menu .tt-dropdown-menu {
@@ -67,27 +27,3 @@
     background-color: #ddd;
 }
 /* ----- End : Bouton barre de recherche */
-
-/* ----- Bouton changement layer */
-#changeMapSelection {
-    position: absolute;
-    right: 20px;
-    top: 50px;
-}
-
-#changeMapButton {
-    /* background-color: #ffffff; */
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-    padding: 5px;
-    height: 50px;
-    width: 50px;
-}
-
-#imgchangeMap {
-    width: 40px;
-    height: 40px;
-}
-
-/* ----- End : Bouton dessiner polygone */

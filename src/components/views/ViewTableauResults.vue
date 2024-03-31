@@ -21,8 +21,7 @@
               </tr>
             </thead>
             <tbody class="table-body-container">
-
-              <tr v-for="(zone, index) in resultsDatasPerimetre[0]['data']" :key="index">
+              <tr v-if="resultsDatasPerimetre.length > 0 && resultsDatasPerimetre[0]['data'].length > 0" v-for="(zone, index) in resultsDatasPerimetre[0]['data']" :key="index">
                 <td>{{ zone.zone_name_fr }}</td>
                 <td>{{ zone.zone_restriction_fr }}</td>
                 <td>{{ zone.zone_message_fr }}</td>
@@ -58,8 +57,7 @@
 </script>
     
 <style scoped>
-    /* Vos styles CSS ici */
-    .future-results {
+  .future-results {
     border: 2px solid black;
     padding: 10px;
     margin-top: 20px;

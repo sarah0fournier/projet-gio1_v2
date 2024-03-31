@@ -1,11 +1,11 @@
 <!-- Vue : Cree les checkbox des layer et gere si couches actives ou non sur la map -->
+<!-- PBL Etat de la  Etat de la checkbox en fct du layerVisibility. Si initialise a true layerVisibility, la checbox foncttione pas --> 
 
-<!-- TODO eventuelle : Etat de la checkbox en fct du layerVisibility, comment ? Si je intialise tous a false ok de pas gerer le cas -->
 <template>
     <div>
       <h2>Layers</h2>
       <div v-for="(layer, index) in layers" :key="index">
-        <input type="checkbox" @change="toggleLayer(layer)">
+        <input type="checkbox" @change="toggleLayer(index)">
         <label>{{ layer.getSource().getParams().name }}</label>
       </div>
     </div>
@@ -21,16 +21,21 @@
        * @prop {Object} layerVisibility - L'état de visibilité actuel des couches.
        * @method toggleLayer - Méthode pour basculer la visibilité d'une couche.
       */
-      props : ['layers', 'layerVisibility'],
+      props : {
+        layers:Array,
+        layerVisibility:Array,
+      },
+     
 
       methods: {
         /**
          * Bascule la visibilité d'une couche lorsqu'une case à cocher est cochée ou décochée.
          * @param {Object} layer - La couche à basculer.
         */
-        toggleLayer(layer) {
-          layer.setVisible(!layer.getVisible())
-          console.log("Toggling layer", layer)
+        toggleLayer(index) {
+          this.layerVisibility[index] =! this.layerVisibility[index]
+          // layer.setVisible(!layer.getVisible())
+          // console.log("New état de la checkbox ", this.layerVisibility[index])
         },
       },
   };

@@ -56,12 +56,9 @@
         */
         
         props: {
-            coordinates: {
-                type: Array,
-                default: () => []
-            },
+            coordinates: Array, 
             popupVisible: Boolean, 
-            resultsPopup: [],
+            resultsPopup: Array,
         },
 
         methods: {

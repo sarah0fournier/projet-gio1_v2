@@ -1,5 +1,3 @@
-// NE PAS SUPPRIMER !!!!!!!!!!!!!!!!!!!!!!!!!!
-
 import {projectionCode, wmsUrlGeoadmin, wmsUrlGeodienst, attributionUrlGeoadmin, attributionUrlGeodienst } from '../../assets/js/constante.js';
 
 export function createLayer(name, layerName, attribution, wmsurl, attributionUrl, background = true ) {

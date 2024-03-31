@@ -112,7 +112,6 @@ function displaySearchResults(results) {
     });
 }
 
-// ---- A mettre dans layer.js ???
     // Créer un vecteur de source de recherche
     var markerSource = new ol.source.Vector({
         extent: [232e4,93e4,30e5,145e4],
@@ -165,7 +164,6 @@ function displaySearchResults(results) {
         // Ajouter le marqueur à la source du vecteur
         markerSource.addFeature(marker);
     }
-// ---- Fin A mettre dans layer.js ???
 
 // Retirer les balises HTML d'une chaîne de caractères
 function stripHtmlTags(html) {

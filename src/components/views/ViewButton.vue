@@ -1,4 +1,4 @@
-<!-- Vue pour generer un bouton (s occupe pas de ce qu il fait) -->
+<!-- Vue pour generer un bouton (ne s occupe pas de ce qu il fait) -->
 
 <template>
     <button id="buttonId" @click="boutonClick"> 
@@ -19,8 +19,8 @@
      * @component
      * @prop {String} buttonText - Le texte à afficher sur le bouton.
      * @prop {String} buttonId - L'identifiant unique du bouton.
-     * @prop {String} [buttonImage] - Le chemin de l'image à afficher sur le bouton (facultatif).
-     * @prop {String} [imageSize='50px'] - La taille de l'image (par défaut '50px').
+     * @prop {String} buttonImage - Le chemin de l'image à afficher sur le bouton (facultatif).
+     * @prop {String} imageSize='50px' - La taille de l'image (par défaut '50px').
      * @event bouton-click - Événement émis lors du clic sur le bouton.
     */
 

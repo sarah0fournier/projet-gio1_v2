@@ -8,7 +8,8 @@
           
           <!-- Logo -->
           <div class="w3-center">
-              <h1>Carte de la Suisse</h1>
+              <h1 style="font-size: 30px;">Restriction drone - CH</h1>
+              <h5 style="font-size: 15px;">Projet GIO1 - HES-SO MDT</h5>
           </div>
           <!-- End Logo -->
 
@@ -27,14 +28,14 @@
                   
                   <!-- Hauteur de vol -->
                   <div style="display: flex; align-items: center;">
-                      <label for="heightMachine" style="display: inline-block;">Hauteur de vol (en mètres) : </label>
+                       <label for="heightMachine" style="display: inline-block;">Hauteur de vol (en mètres) : </label>
                       <input type="text" id="heightMachine" name="heightMachine" required style="display: inline-block; width: 150px; margin-left: 5px;">
-                      
+
                       <!-- Information supplementaire -->
-                      <!-- Pbl emplacement affichage info supplementaire -->
-                      <button id="myButton" onmouseover="showTooltip()" onmouseout="hideTooltip()" style="margin-left: 5px;">?</button>
-                      <div id="tooltip" style="display: none; position: absolute; z-index: 999; background-color: white;"> Hauteur relative la plus petite</div>
-                  </div><br>
+                      <button id="myButton" @mouseover="showTooltip()" @mouseout="hideTooltip()" style="margin-left: 5px;">?</button>
+                      <div id="tooltip" style="display: none; position: absolute; z-index: 999; background-color: white;">Hauteur relative la plus petite</div>
+
+                    </div><br>
 
                   <!-- Poid du drone -->
                   <label for="weightMachine" style="display: inline-block;">Poids du drone :</label>
@@ -47,7 +48,7 @@
                   <!-- Bouton pour démarrer le dessin du polygone -->
                   <label for="DrawingButton" style="display: inline-block;">Dessiner la zone de vol :</label>
                   
-                  <!-- Ajouter avec bouton vue iconne dessin -->
+                  <!-- Ajouter avec bouton vue icone dessin -->
                   <ViewButton buttonImage="/img/pentagon-svgrepo-com.png" buttonId="drawBtn" @bouton-click="startDraw"/>
                   <br><br>
 
@@ -60,8 +61,8 @@
             
           <!-- Couches à cocher -->
           <div class="mt-2 greyBackground border border-dark p-1"> 
-            <!-- <ViewChecboxLayer @changed="layersChanged" /> -->
-            <ViewChecboxLayer :layers="layers" :layerVisibility="layerVisibility" @layer-visibility-changed="toggleLayer" />
+            <ViewChecboxLayer :layers="layers" :layerVisibility="layerVisibility"/>
+            <!-- <ViewChecboxLayer :layers="layers" :layerVisibility="layerVisibility" @layer-visibility-changed="toggleLayer" /> -->
           </div>
           <!-- End Conteneur layers -->
 
@@ -82,9 +83,7 @@
 
 <script>
 
-
-// A traiter 
-// import searchLocation from './assets/js/searchLocation.js'; 
+// Import fichier js
 import * as flightForm from './assets/js/flightForm.js';
 
 
@@ -95,7 +94,6 @@ import ViewChecboxLayer from './components/views/ViewChecboxLayer.vue';
 
 import { wmsUrlGeoadmin, attributionUrlGeoadmin, wmsUrlGeodienst, attributionUrlGeodienst } from './assets/js/constante.js';
 import {createLayer } from './assets/js/addLayer.js';
-import { isSorted } from 'ol/array';
 
 export default {
   name: 'App-root',
@@ -134,16 +132,6 @@ export default {
         false,
       ],      
 
-      // TODO : Layer background (meme principe que layers) --> PBL me donne ereur
-      // layersBackground : [
-      //   createLayer("CN","ch.swisstopo.pixelkarte-farbe", "WMTS CarteNationale", wmsUrlGeoadmin, attributionUrlGeoadmin),
-      //   createLayer("SwissSURFACE3D","ch.swisstopo.swisssurface3d-reliefschattierung-multidirektional", "WMTS Relief multidir. issu de SwissSURFACE3D", wmsUrlGeoadmin, attributionUrlGeoadmin),
-      //   createLayer("MO","LCSF,LCSFPROJ,Conduites,SOLI,SOSF,SOPT,Adresses_des_batiments,Nomenclature,Biens_fonds,Biens_fonds_projetes,Limites_territoriales", "WMTS MO", wmsUrlGeodienst, attributionUrlGeodienst),
-      //   createLayer("swissImage","ch.swisstopo.swissimage", "WMTS swissimage", wmsUrlGeoadmin, attributionUrlGeoadmin),
-      // ],
-
-      // vectorLayer: null, 
-
       isResults : false, // Etat affichage tbl result
       isVectorLayer : true, 
 
@@ -163,17 +151,13 @@ export default {
       */
       event.preventDefault();
 
-      // console.log(this.draw.getSource().getFeatures().length)
-
-      // Verifier que perimetre zone dessiner : 
+      // TODO : Verifier que perimetre zone dessiner : 
       // definir draw comme objet parent afin de pouvoir utiliser dans formulaire au lieu comme state de maps. 
       // puis faudrait ensuite regarder son contenu avec deep pour voir si il y a des modifications et de envoyer au parent. 
 
-      // if (flightForm.validateForm(this.draw)) {
       if (flightForm.validateForm()) {
         this.isResults = true // etat affichage tbl resultat
-        // this.endDraw() // veut pouvoir dessiner apres avoir soumis formulaire (si veut pas pouvoir dessiner apres avoir soumis form activer cette ligne)
-        console.log("Formulaire soumis avec succès !");
+        // console.log("Formulaire soumis avec succès !");
       }
     },
 
@@ -194,7 +178,7 @@ export default {
       // Enlever tableau resultat 
       this.endTableau()
       
-      console.log("Formulaire réinitialiser !");
+      // console.log("Formulaire réinitialiser !");
     },
 
     startDraw(event) {
@@ -210,7 +194,7 @@ export default {
       this.isDrawing = true;
       this.isVectorLayer = true; 
 
-      console.log("Fonction pour dessiner activer");
+      // console.log("Fonction pour dessiner activer");
     },
 
     endDraw(event) {
@@ -219,7 +203,7 @@ export default {
        * @param {Event} event - L'événement d'arrêt du dessin.
       */
       this.isDrawing = false;
-      console.log('Etat endDraw isDrawing' , this.isDrawing)
+      // console.log('Etat endDraw isDrawing' , this.isDrawing)
     },
 
     endVectorLayer(event){
@@ -238,13 +222,26 @@ export default {
        * @param {Event} event - L'événement de désactivation du tableau de résultats.
       */
       this.isResults = false
+    },
+
+    
+    showTooltip() {
+      /**
+       * Affiche la tooltip.
+      */
+      document.getElementById("tooltip").style.display = "block"
+   },
+
+    hideTooltip() {
+      /**
+       * Masque la tooltip.
+      */
+      document.getElementById("tooltip").style.display = "none"
     }
 
   },
   mounted() {
-    // initLayer();
-    // initFlightZone();   
-    // initFlightForm();
+
   },
 }
 </script>
@@ -256,11 +253,41 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+    margin-top: 0px;
     height: 100%;
     width: 100%;
   }
+
   #vue-icon{
     height: 5em;
   }
+
+  #menu {
+    height: 100vh;
+}
+
+  /* ----- Bouton dessiner polygone */
+  /* #drawSelection {
+      position: absolute;
+      right: 20px;
+      top: 50px;
+  }
+
+  #startDrawingButton {
+      border-style: solid;
+      border-width: 1px;
+      border-color: black;
+      padding: 5px;
+      height: 50px;
+      width: 50px;
+  }
+
+  #imgDraw {
+      width: 40px;
+      height: 40px;
+  }
+   */
+
+  /* ----- End : Bouton dessiner polygone */
+
 </style>

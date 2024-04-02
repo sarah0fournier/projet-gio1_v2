@@ -1,6 +1,15 @@
 # Restriction drone - CH
 
 ## Contexte 
+Ce projet d'application web a été effectué dans le cours GIO1 du cursus de master MDT de la HES-SO.
+Il porte avant tout un but éducatif permettant l'utilisation des nouveaux outils tel que Git, Github, Vue.js, etc. 
+
+La législation concernant le vol de drone a changé au 1er janvier de cette année et un certain nombre de nouvelles règles sont entrées en vigueur. 
+L'idée était donc de proposer un site web permettant à l'utilisateur de rentrer la zone de son plan de vol et quelques informations comme la hauteur de vol, afin de connaître automatiquement les restrictions locales.
+Ce sujet a été proposé le Professeur Adrien Gressin à la HEIG-VD.
+Il a été dévloppé par Mesdames Sarah Fournier et Noémie Görisch, étudiantes au MDT.
+Les Rofesseurs encadrants sont Messieurs Olivier Lemer et Jens Ingensand.
+
 
 ## Déroulement du projet
 

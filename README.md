@@ -48,7 +48,7 @@ Cela a demandé souvent des améliorations voir de recommencer à zéros.
 Notammnent pour l'outils de recherche, rien n'a été récupéré de la prmière version. C'est pourquoi ces outils n'est pas aboutit, il manque par exemple l'autocomplétion implémentée dans la prmière version. 
 
 
-*Autre exemple Sarah de fonctionnalité qui étaient mieux avant ?
+*Autre exemple Sarah de fonctionnalité qui étaient mieux avant ?  
 La première version du code se trouve donc ici (branche ? zip? au repo??*
 
 
@@ -72,13 +72,53 @@ La première version du code se trouve donc ici (branche ? zip? au repo??*
   Il n'affiche que les résulats pour la couche de restriction des drones, que celle-ci soit activée ou non. 
 
 ### Composant Vue
+*A finir avec image* 
 
 ## Etat idéal
+### Implémentation à corriger 
+* A finir*
 
 ### Fonctionalités à implémenter
+Celles-ci n'ont pas été implémenter par manque de temps principalement.  
+Elles concernent : 
+#### Pour la barre de recherche 
+- L'autocomplétion (implémenté dans la première version du code) 
+- Mieux gérer le zoom sur la carte
+- Eventuellelemt mettre une épingle sur l'objet rechercher (implémenté dans la première version du code)
+- La recherche par coordonnées (implémenté dans la première version du code)
 
+  #### Pour le formulaire
+- Gestion des informations remplies :
+   - En affichant un autre tableau de resultat avec les restrictios en fontion de la hauteur et du poids
+   - En calculant s'il y a des intersection avec le MNS ou les objets pouvant géner la circulation aérienne, etc.
+   - En renvoyant l'utilisateur vers le site internet des restrictions
+     *lien à mettre*
+ - En inttroduisant d'autre informations comme :
+   - Le permis que l'on dispose
+   - Le nombre de personne estimées que l'on survole
+   - Le jours et l'heure 
+     
+#### Pour la partie des couches à activer 
+- D'autres couches comme
+     - *A remplir*
+- La possiblilité d'avoir de la transparence sur la couche activée
+- Bouton pour observer les méta données de la couche
+- Légende des couleurs et symboles par couches
+  
+#### Pour la carte 
+- Importation et exportation de la zone de vol
+- Modification de la zone de vol sans tout remplir le formulair à chaque fois
 
+#### Pour l'onglet pour la gestion des fonds de carte 
+- Gestion de la transparence
 
+#### Pour les popup
+- Le parsage des autres couches
+- Le retour d'information géographique (coordonnées, altitude sur MNT et MNA, etc.)
+- Gestion de la taille du popup
+- 
+#### Pour le tableau de resultats 
+*A finir*
 
 # A trier 
 

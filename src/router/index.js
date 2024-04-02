@@ -4,7 +4,7 @@ import { createWebHistory, createRouter } from "vue-router";
 // import Vcesium from "@/components/views/ViewCesium.vue";
 // import Vaxios from "@/components/views/ViewAxios.vue";
 // import Vopenlayers from "@/components/views/ViewOpenlayers.vue";
-import NotFound404 from "@/components/errors/404page.vue";
+//import NotFound404 from "@/components/errors/404page.vue";
 
 const routes = [
   // {
@@ -32,12 +32,12 @@ const routes = [
   //   name: "Cesium",
   //   component: Vcesium,
   // },
-  {
-    path: "/:catchAll(.*)",
-    name: "404 page",
-    component: NotFound404,
-  }
-];
+  //{
+  //     path: "/:catchAll(.*)",
+  //     name: "404 page",
+  //     component: NotFound404,
+  //   }
+   ];
 
 const router = createRouter({
   history: createWebHistory(),

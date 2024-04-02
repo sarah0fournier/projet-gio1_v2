@@ -13,11 +13,9 @@
           </div>
           <!-- End Logo -->
 
-          <!-- Champ de saisie de recherche avec Typeahead -->
+          <!-- Champ de saisie de recherche -->
           <div class="mt-2 greyBackground border border-dark p-1">
-              <div id="scrollable-dropdown-menu">
-                  <input id="searchInput" class="form-control" type="text" placeholder="Recherche une parcelle, adresse,...">
-              </div>
+            <ViewSearch  @box-search="handleSearchResult" />
           </div>
           <!-- End Champ de saisie de recherche -->
 
@@ -71,8 +69,7 @@
 
       <!-- Right: Contenur map -->
       <div class="col-9">
-        <ViewMaps :layers="layers" :layerVisibility="layerVisibility" :isDrawing="isDrawing" :isVectorLayer="isVectorLayer" :isResults="isResults" @close-draw="isDrawing = false">      
-        </ViewMaps>
+        <ViewMaps :layers="layers" :layerVisibility="layerVisibility" :isDrawing="isDrawing" :intialiserFormulaire="intialiserFormulaire" :isResults="isResults" :selectedCoordinates="selectedCoordinates"/>      
       </div>
       <!-- End Contenur map --> 
 
@@ -91,6 +88,7 @@ import * as flightForm from './assets/js/flightForm.js';
 import ViewMaps from './components/views/ViewMaps.vue';
 import ViewButton from './components/views/ViewButton.vue';
 import ViewChecboxLayer from './components/views/ViewChecboxLayer.vue'; 
+import ViewSearch from './components/views/ViewSearch.vue'; 
 
 import { wmsUrlGeoadmin, attributionUrlGeoadmin } from './assets/js/constante.js';
 import {createLayer } from './assets/js/addLayer.js';
@@ -101,12 +99,14 @@ export default {
     ViewMaps,
     ViewButton,
     ViewChecboxLayer,
+    ViewSearch,
   },
 
   data(){
     /**
      * État de l'application.
      * @typedef {Object} AppState
+     * @property {String} selectedCoordinates - contient les coordonnée de la recherche 
      * @property {boolean} isDrawing - Indique si le dessin de la zone de vol est en cours.
      * @property {boolean} intialiserFormulaire - Indique si le formulaire est initialisé.
      * @property {Array<Object>} layers - Liste des couches de la carte.
@@ -117,6 +117,8 @@ export default {
     */
     
     return {
+      selectedCoordinates: null, 
+
       isDrawing : false, // Etat change quand on clique sur bouton dessin ou soumettre
       intialiserFormulaire : false,
       
@@ -224,7 +226,6 @@ export default {
       this.isResults = false
     },
 
-    
     showTooltip() {
       /**
        * Affiche la tooltip.
@@ -237,7 +238,15 @@ export default {
        * Masque la tooltip.
       */
       document.getElementById("tooltip").style.display = "none"
-    }
+    },
+
+    handleSearchResult(geom_st_box2d) {
+      /**
+       * Met à jour les coordonnées de la localisation recherchée
+      */
+     //console.log('Résultat de la recherche:', geom_st_box2d);
+      this.selectedCoordinates = geom_st_box2d
+    },
 
   },
   mounted() {

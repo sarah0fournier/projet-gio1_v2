@@ -55,6 +55,7 @@
          * @prop {boolean} isDrawing - Indique si le dessin est en cours ou non.
          * @prop {boolean} isResults - Indique si les résultats sont affichés ou non.
          * @prop {boolean} isVectorLayer - Indique si la couche vectorielle est activée ou non.
+         * @prop {String} selectedCoordinates - contient les coordonnée de la recherche 
          * @method changeBackground - Méthode pour changer le fond de carte.
          * @method startDrawingOnMap - Méthode pour commencer le dessin sur la carte.
          * @method togglePopup - Méthode pour afficher ou masquer la popup.
@@ -76,6 +77,7 @@
             isDrawing: Boolean, 
             isResults: Boolean,
             isVectorLayer: Boolean, 
+            selectedCoordinates: String,
         },  
 
         watch: {
@@ -130,6 +132,17 @@
                 },
                 deep: true 
             },
+
+            selectedCoordinates: {
+                handler(newValue) {
+                    if (newValue) {
+                        // Appeler la fonction pour centrer la carte sur les nouvelles coordonnées
+                        this.centerMapOnCoordinates();
+                    }
+                },
+                immediate: true // Pour déclencher la fonction dès le montage du composant si selectedCoordinates est initialement défini
+            },
+
         },  
 
         data() {
@@ -396,6 +409,28 @@
                 this.popupVisible = false
             },
 
+        },
+
+        parseCoordinatesFromString(coordinatesString) {
+            // Supprime les parties non numériques et divise la chaîne en un tableau de valeurs
+            const coordinatesArray = coordinatesString.replace(/[BOX()]/g, '').split(' ');
+            // Convertis les valeurs en nombres flottants et retourne-les sous forme de tableau
+        return coordinatesArray.map(coord => parseFloat(coord));
+        },
+
+
+        centerMapOnCoordinates() {
+            // Parse les coordonnées de la chaîne
+            const coordinates = this.parseCoordinatesFromString(this.selectedCoordinates);
+            // Calcule les coordonnées du centre de la boîte englobante
+            const centerCoordinates = [
+                (coordinates[0] + coordinates[2]) / 2, // Moyenne 
+                (coordinates[1] + coordinates[3]) / 2  // Moyenne 
+            ];
+            // Centre la carte sur les coordonnées calculées
+            if (this.map && centerCoordinates) {
+                this.map.getView().animate({ center: centerCoordinates, duration: 1000 });
+            }
         },
 
         mounted() {

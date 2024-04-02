@@ -1,4 +1,27 @@
-# Vuejs 3.0 + carto2D/3D Seed
+# Restriction drone - CH
+
+## Contexte 
+
+## Déroulement du projet
+
+### Répartition des tâches
+
+### Problèmes rencontrés
+
+## Etat actuel
+
+### Fonctionnalités implémentées
+
+### Composant Vue
+
+## Etat idéal
+
+### Fonctionalités à implémenter
+
+
+
+
+# A trier 
 
 This is a basic starter project for a Vuejs 3.0 app (via vue-cli). 
 It includes :

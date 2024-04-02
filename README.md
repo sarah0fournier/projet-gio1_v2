@@ -47,15 +47,29 @@ Cela a demandé souvent des améliorations voir de recommencer à zéros.
 
 Notammnent pour l'outils de recherche, rien n'a été récupéré de la prmière version. C'est pourquoi ces outils n'est pas aboutit, il manque par exemple l'autocomplétion implémentée dans la prmière version. 
 
-```
-<span style="color:red">Autre exemple Sarah de fonctionnalité qui étaient mieux avant ?</span>
 
-<span style="color:red">La première version du code se trouve donc ici (branche ? zip? au repo?? </span>
-```
+*Autre exemple Sarah de fonctionnalité qui étaient mieux avant ?
+La première version du code se trouve donc ici (branche ? zip? au repo??*
+
 
 ## Etat actuel
 
 ### Fonctionnalités implémentées
+- La barre de recherche pour zoomer sur la carte sur le lieu
+- Le formulaire :
+   - Champs pour la hauteur de vol
+   - Liste déroulante pour le poids
+   - Bouton de dessin pour la zone de vol
+   - Bouton pour soumettre : permet d'afficher le tableau de resultat d'intersection avec les restrictions
+   - Bouton pour réinitialiser le formulaire : permet de fermer le tableau, d'effacer la forme dessinée, et de vider le formulaire
+- Des checkbox pour activer les couches à afficher 
+- Une carte sur laquelle il est possible de dessiner la zone de vol
+- Un onglet pour choisir les fonds de carte 
+- Un bouton Popup : qui permet de cliquer sur la carte et d'obtenir les infos de l'objet cliqué
+  Seul le parsage des infos de la couche de restriction des drones a été implémentée.
+  Si la couches n'est pas affichée, la couche n'est pas intérogée.
+- Un tableau de résultats : s'affiche lors de la soumission du formulaire.
+  Il n'affiche que les résulats pour la couche de restriction des drones, que celle-ci soit activée ou non. 
 
 ### Composant Vue
 

@@ -5,7 +5,7 @@
     <div>
       <h2>Layers</h2>
       <div v-for="(layer, index) in layers" :key="index">
-        <input type="checkbox" @change="toggleLayer(index)">
+        <input type="checkbox" @change="toggleLayer(index)">       
         <label>{{ layer.getSource().getParams().name }}</label>
       </div>
     </div>
@@ -25,6 +25,9 @@
         layers:Array,
         layerVisibility:Array,
       },
+
+      // props : ['layers', 'layerVisibility'],
+
      
 
       methods: {
@@ -34,7 +37,6 @@
         */
         toggleLayer(index) {
           this.layerVisibility[index] =! this.layerVisibility[index]
-          // layer.setVisible(!layer.getVisible())
           // console.log("New état de la checkbox ", this.layerVisibility[index])
         },
       },

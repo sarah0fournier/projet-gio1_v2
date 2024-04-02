@@ -60,7 +60,6 @@
           <!-- Couches à cocher -->
           <div class="mt-2 greyBackground border border-dark p-1"> 
             <ViewChecboxLayer :layers="layers" :layerVisibility="layerVisibility"/>
-            <!-- <ViewChecboxLayer :layers="layers" :layerVisibility="layerVisibility" @layer-visibility-changed="toggleLayer" /> -->
           </div>
           <!-- End Conteneur layers -->
 
@@ -69,7 +68,7 @@
 
       <!-- Right: Contenur map -->
       <div class="col-9">
-        <ViewMaps :layers="layers" :layerVisibility="layerVisibility" :isDrawing="isDrawing" :intialiserFormulaire="intialiserFormulaire" :isResults="isResults" :selectedCoordinates="selectedCoordinates"/>      
+        <ViewMaps :layers="layers" :layerVisibility="layerVisibility" :isDrawing="isDrawing" :intialiserFormulaire="intialiserFormulaire" :isResults="isResults" :selectedCoordinates="selectedCoordinates" @close-draw="this.isDrawing=false"/>      
       </div>
       <!-- End Contenur map --> 
 
@@ -244,7 +243,7 @@ export default {
       /**
        * Met à jour les coordonnées de la localisation recherchée
       */
-    //  console.log('Résultat de la recherche:', geom_st_box2d);
+      //  console.log('Résultat de la recherche:', geom_st_box2d);
       this.selectedCoordinates = geom_st_box2d
     },
 

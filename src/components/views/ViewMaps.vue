@@ -85,6 +85,7 @@
                 handler(newVal) {
                     // console.log(`ViewMaps.vue : layerVisibility changed to ${newVal}`)
                     // Pour chaque couche et sa visibilite correspondante
+
                     this.layers.forEach((layer, index) => {
 
                         // Verifiez si la couche est visible
@@ -227,7 +228,6 @@
                     source: new ol.source.Vector()
                 });
                 this.map.addLayer(this.vectorLayer);
-                // this.vectorLayer = vectorLayer;
             },
 
             createDrawInteraction(vectorLayer) {
@@ -279,10 +279,12 @@
                         // Parcourir chaques layers pour faire intersection couche entre zone de vol et la couche
                         this.layers.forEach((layer, index) => {
                             // Dans ce cas, ajouter contrainte de faire que sur la couche ch.bazl.einschraenkungen-drohnen, car manque de temps pour faire tableau qui affiche resultat differents layers et la gestion resultat requete d autre couche
-                            if (layer.getSource().getParams().layers = 'ch.bazl.einschraenkungen-drohnen'){
+                            let name_layer = layer.getSource().getParams().layers
+
+                            if (name_layer  == 'ch.bazl.einschraenkungen-drohnen'){
 
                                 // Envoie requete url pour chaque layer (peut importe si activer ou non)
-                                let name_layer = layer.getSource().getParams().layers
+                                // let name_layer = layer.getSource().getParams().layers
                                 let url = BuildUrlApiGeoadmin(name_layer, coordinates)
 
                                 // Appeler la fonction pour récupérer les données à partir de l'URL
@@ -316,7 +318,7 @@
                 this.isPopup =!  this.isPopup
 
                 if (this.isPopup) {
-
+                    
                     // Modifier parent isDrawing
                     this.closeDraw()
                     
@@ -410,13 +412,13 @@
             },
 
             parseCoordinatesFromString(coordinatesString) {
-            // Remplacer la virgule par un espace
-            const cleanedString = coordinatesString.replace(/,/g, ' ');
+                // Remplacer la virgule par un espace
+                const cleanedString = coordinatesString.replace(/,/g, ' ');
 
-            // Supprime les parties non numériques et divise la chaîne en un tableau de valeurs
-            const coordinatesArray = cleanedString.replace(/[BOX()]/g, '').split(' ');
-            // Convertis les valeurs en nombres flottants et retourne-les sous forme de tableau
-            return coordinatesArray.map(coord => parseFloat(coord));
+                // Supprime les parties non numériques et divise la chaîne en un tableau de valeurs
+                const coordinatesArray = cleanedString.replace(/[BOX()]/g, '').split(' ');
+                // Convertis les valeurs en nombres flottants et retourne-les sous forme de tableau
+                return coordinatesArray.map(coord => parseFloat(coord));
             },
 
 
@@ -429,7 +431,7 @@
                     (coordinates[0] + coordinates[2]) / 2, // Moyenne 
                     (coordinates[1] + coordinates[3]) / 2  // Moyenne 
                 ];
-                console.log(centerCoordinates)
+
                 // Centre la carte sur les coordonnées calculées et zoom a un niveau par defaut
                 if (this.map && centerCoordinates) {
                     this.map.getView().animate({ center: centerCoordinates, duration: 1000, zoom: 15 });
@@ -452,6 +454,8 @@
                 this.map.addLayer(layer);
                 layer.setVisible(this.layerVisibility[index])
             })
+
+
 
             // Intialiser les couches pour stockage de la zone de vol
             this.initLayerDraw()

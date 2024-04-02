@@ -140,7 +140,7 @@
                         this.centerMapOnCoordinates();
                     }
                 },
-                immediate: true // Pour déclencher la fonction dès le montage du composant si selectedCoordinates est initialement défini
+                deep: true // Pour déclencher la fonction dès le montage du composant si selectedCoordinates est initialement défini
             },
 
         },  
@@ -409,29 +409,36 @@
                 this.popupVisible = false
             },
 
-        },
+            parseCoordinatesFromString(coordinatesString) {
+            // Remplacer la virgule par un espace
+            const cleanedString = coordinatesString.replace(/,/g, ' ');
 
-        parseCoordinatesFromString(coordinatesString) {
             // Supprime les parties non numériques et divise la chaîne en un tableau de valeurs
-            const coordinatesArray = coordinatesString.replace(/[BOX()]/g, '').split(' ');
+            const coordinatesArray = cleanedString.replace(/[BOX()]/g, '').split(' ');
             // Convertis les valeurs en nombres flottants et retourne-les sous forme de tableau
-        return coordinatesArray.map(coord => parseFloat(coord));
+            return coordinatesArray.map(coord => parseFloat(coord));
+            },
+
+
+            centerMapOnCoordinates() {
+                // Parse les coordonnées de la chaîne
+                const coordinates = this.parseCoordinatesFromString(this.selectedCoordinates);
+
+                // Calcule les coordonnées du centre de la boîte englobante
+                const centerCoordinates = [
+                    (coordinates[0] + coordinates[2]) / 2, // Moyenne 
+                    (coordinates[1] + coordinates[3]) / 2  // Moyenne 
+                ];
+                console.log(centerCoordinates)
+                // Centre la carte sur les coordonnées calculées et zoom a un niveau par defaut
+                if (this.map && centerCoordinates) {
+                    this.map.getView().animate({ center: centerCoordinates, duration: 1000, zoom: 15 });
+                }
+            },
+
         },
 
 
-        centerMapOnCoordinates() {
-            // Parse les coordonnées de la chaîne
-            const coordinates = this.parseCoordinatesFromString(this.selectedCoordinates);
-            // Calcule les coordonnées du centre de la boîte englobante
-            const centerCoordinates = [
-                (coordinates[0] + coordinates[2]) / 2, // Moyenne 
-                (coordinates[1] + coordinates[3]) / 2  // Moyenne 
-            ];
-            // Centre la carte sur les coordonnées calculées
-            if (this.map && centerCoordinates) {
-                this.map.getView().animate({ center: centerCoordinates, duration: 1000 });
-            }
-        },
 
         mounted() {
             // Fonction appeler lors du montage du composant

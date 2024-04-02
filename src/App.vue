@@ -244,7 +244,7 @@ export default {
       /**
        * Met à jour les coordonnées de la localisation recherchée
       */
-     //console.log('Résultat de la recherche:', geom_st_box2d);
+    //  console.log('Résultat de la recherche:', geom_st_box2d);
       this.selectedCoordinates = geom_st_box2d
     },
 

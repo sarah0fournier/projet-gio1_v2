@@ -47,10 +47,11 @@ Cela a demandé souvent des améliorations voir de recommencer à zéros.
 
 Notammnent pour l'outils de recherche, rien n'a été récupéré de la prmière version. C'est pourquoi ces outils n'est pas aboutit, il manque par exemple l'autocomplétion implémentée dans la prmière version. 
 
+```
 <span style="color:red">Autre exemple Sarah de fonctionnalité qui étaient mieux avant ?</span>
 
 <span style="color:red">La première version du code se trouve donc ici (branche ? zip? au repo?? </span>
-
+```
 
 ## Etat actuel
 

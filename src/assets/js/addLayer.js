@@ -29,7 +29,6 @@ export function createLayer(name, layerName, attribution, wmsurl, attributionUrl
             url: wmsurl,
             projection: projectionCode,
             params: { layers: layerName, name : name},
-            attributions: [`&copy; <a href="${attributionUrl}">${attribution}</a>`]
         }),
         zIndex: valueIndex,
         opacity: valueOpacity,

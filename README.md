@@ -62,7 +62,11 @@ En conclusion, la migration ver Vue.JS a été délicate mais a pu simplifier ce
    - Champs pour la hauteur de vol
    - Liste déroulante pour le poids
    - Bouton de dessin pour la zone de vol
-   - Bouton pour soumettre : permet d'afficher le tableau de resultats d'intersection avec les restrictions
+     On peut modifier la zone vol après avoir soumis le formulaire en la redessinant.
+     Le tableau se met à jour.  
+   - Bouton pour soumettre : permet d'afficher le tableau de resultats d'intersection avec les restrictions.
+     Il y a une vérification que le poid du drone et la hauteur de vol soient remplis. Si ce n'est pas le cas un message d'erreur s'affiche.  
+     Ne vérifie pas si un zone de vol est dessinée. 
    - Bouton pour réinitialiser le formulaire : permet de fermer le tableau, d'effacer la forme dessinée, et de vider le formulaire
 - Des checkboxs pour activer les couches à afficher 
 - Une carte sur laquelle il est possible de dessiner la zone de vol
@@ -78,7 +82,12 @@ En conclusion, la migration ver Vue.JS a été délicate mais a pu simplifier ce
 
 ## Etat idéal
 ### Implémentation à corriger 
-* A finir*
+- Appliquer la fonction ```createLayer``` pour les fonds de cartes aussi
+- Fonctionnalité ```SwissImage``` ne fonctionne pas très bien pour les fonds de cartes
+- Eventuellelemt mettre une épingle sur l'objet recherché (implémenté dans la première version du code)
+- La recherche par coordonnées (implémenté dans la première version du code)
+- L'autocomplétion lors de la recherche (implémenté dans la première version du code)
+
 
 ### Composant Vue idéal
 ![Découpage théorique en composants Vue.JS](https://github.com/sarah0fournier/projet-gio1_v2/blob/main/img_README/Vue_theorique.svg)  
@@ -93,10 +102,7 @@ Celles-ci n'ont pas été implémentées par manque de temps principalement.
 Elles concernent : 
 
 #### Pour la barre de recherche 
-- L'autocomplétion (implémenté dans la première version du code)
 - Mieux gérer le zoom sur la carte
-- Eventuellelemt mettre une épingle sur l'objet recherché (implémenté dans la première version du code)
-- La recherche par coordonnées (implémenté dans la première version du code)
 
 #### Pour le formulaire
 - Gestion des informations remplies :
@@ -111,14 +117,17 @@ Elles concernent :
      
 #### Pour la partie des couches à activer 
 - D'autres couches comme
-     - *A remplir*
+     - Avis de tir et zones de danger publiés [Texte du lien](https://api3.geo.admin.ch/rest/services/api/MapServer/ch.vbs.schiessanzeigen)
+     - Places d'atterrissage d'hôpitaux
+     - Places d'atterrissage en montagne
+     - Zones construites aux termes du droit aérien suisse
+     - 
 - La possiblilité de gérer de la transparence sur la couche activée
 - Bouton pour observer les méta-données de la couche
 - Légende des couleurs et symboles par couches
   
 #### Pour la carte 
 - Importation et exportation de la zone de vol
-- Modification de la zone de vol sans tout remplir le formulaire à chaque fois
 - Divers fonctionnalités notamment pour pouvoir facilement se déplacer sur la carte
 - Des outils de mesures
   

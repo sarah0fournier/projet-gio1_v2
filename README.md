@@ -30,7 +30,7 @@ Ce projet a été réalisé en 2 temps importants
      
 2. Le développement avec Vue.JS
    Suite aux cours donnés au sujet de Vue.JS, tous le projet a été "migré".  
-   Le travail de Mme Fournier a été titanesque, et a consisté a migré et développé les fonctionnalitées de :
+   Le travail de Mme Fournier a consisté a migré et développé les fonctionnalités de :
    - Activation des couches et des fonds de cartes
    - Tracer de la zone de vol
    - La partie du formulaire
@@ -48,12 +48,11 @@ La migration à 3 semaines de la fin du projet a été un travail long et très 
 Nous avons essayé de récupérer un maximum les scripts JS utilisés lors du développement sans Vues.  
 Cela a demandé souvent des améliorations voir de recommencer à zéros.
 
-Notammnent pour l'outils de recherche, rien n'a été récupéré de la première version. C'est pourquoi cet outil n'est pas aboutit, il manque par exemple l'autocomplétion implémentée dans la première version. 
+Notammnent pour l'outils de recherche, rien n'a été récupéré de la première version. C'est pourquoi cet outil n'est pas aboutit, il manque par exemple l'autocomplétion implémentée dans la première version.  
+Les autres fonctionnalités ont toutes été ré-implanté voir améliorées.  
+En conclusion, la migration ver Vue.JS a été délicate mais a pu simplifier certiane fonctionnalité.
 
-
-*Autre exemple Sarah de fonctionnalité qui étaient mieux avant ?  SF A NG : Perso j'en vois pas. Je crois que tout a été repris sauf pour l outil de recherche. Après niveau migration il y a un grand mixte entre reprise des fonctions js et de la nouveauté).
-La première version du code se trouve donc ici (branche ? zip? au repo??*
-
+*La première version du code se trouve donc ici (branche ? zip? au repo??*
 
 ## Etat actuel
 
@@ -75,7 +74,7 @@ La première version du code se trouve donc ici (branche ? zip? au repo??*
   Il n'affiche que les résulats pour la couche de restrictions des drones, que celle-ci soit activée ou non. 
 
 ### Composant Vue
-*A finir avec image* 
+![Découpage du projet en composants Vue.JS](https://github.com/sarah0fournier/projet-gio1_v2/blob/main/img_README/Vue_actuelle.svg)
 
 ## Etat idéal
 ### Implémentation à corriger 

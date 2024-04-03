@@ -21,20 +21,22 @@ Ce projet a été réalisé en 2 temps importants
    Pour ce point, Mme Görisch a consacré beaucoup de temps, notamment en dévloppant les fonctionnalité de :
    - Tracer de la zone de vol
    - Requête vers l'API GeoAdmin (pour l'activation des couches et l'intersection) 
-   - Activation des couches et des fonds de cartes  
+   - Activation des couches et des fonds de cartes
+     
    Mme Fournier a quant à elle développé :
    - La partie du formulaire
    - La barre de recherche (avec typeahead.js)
    - L'esthétique générale
      
 2. Le développement avec Vue.JS
-   Suite aux cours donnés au sujet de Vue.JS, tous le projet a été "migré".
+   Suite aux cours donnés au sujet de Vue.JS, tous le projet a été "migré".  
    Le travail de Mme Fournier a été titanesque, et a consisté a migré et développé les fonctionnalités de :
    - Activation des couches et des fonds de cartes
    - Tracer de la zone de vol
    - La partie du formulaire
    - Popup
    - L'esthétique générale
+     
    Mme Görisch a développé :
    - L'affichage du tableau de résultats
    - La barre de recherche
@@ -43,10 +45,10 @@ Ce projet a été réalisé en 2 temps importants
    
 ### Problèmes rencontrés
 La migration à 3 semaines de la fin du projet a été un travail long et très prise tête.  
-Nous avons essayer de récupérer un maximum les scricts JS utilisé lors du dévloppement sans JS.  
+Nous avons essayé de récupérer un maximum les scricts JS utilisés lors du développement sans JS.  
 Cela a demandé souvent des améliorations voir de recommencer à zéros.
 
-Notammnent pour l'outils de recherche, rien n'a été récupéré de la prmière version. C'est pourquoi ces outils n'est pas aboutit, il manque par exemple l'autocomplétion implémentée dans la prmière version. 
+Notammnent pour l'outils de recherche, rien n'a été récupéré de la première version. C'est pourquoi cet outil n'est pas aboutit, il manque par exemple l'autocomplétion implémentée dans la première version. 
 
 
 *Autre exemple Sarah de fonctionnalité qui étaient mieux avant ?  SF A NG : Perso j'en vois pas. Je crois que tout a été repris sauf pour l outil de recherche. Après niveau migration il y a un grand mixte entre reprise des fonctions js et de la nouveauté).
@@ -61,16 +63,16 @@ La première version du code se trouve donc ici (branche ? zip? au repo??*
    - Champs pour la hauteur de vol
    - Liste déroulante pour le poids
    - Bouton de dessin pour la zone de vol
-   - Bouton pour soumettre : permet d'afficher le tableau de resultat d'intersection avec les restrictions
+   - Bouton pour soumettre : permet d'afficher le tableau de resultats d'intersection avec les restrictions
    - Bouton pour réinitialiser le formulaire : permet de fermer le tableau, d'effacer la forme dessinée, et de vider le formulaire
 - Des checkbox pour activer les couches à afficher 
 - Une carte sur laquelle il est possible de dessiner la zone de vol
 - Un onglet pour choisir les fonds de carte 
-- Un bouton Popup : qui permet de cliquer sur la carte et d'obtenir les infos de l'objet cliqué
+- Un bouton Popup : qui permet de cliquer sur la carte et d'obtenir les infos de l'objet cliqué.  
   Seul le parsage des infos de la couche de restriction des drones a été implémentée.
-  Si la couches n'est pas affichée, la couche n'est pas intérogée.
-- Un tableau de résultats : s'affiche lors de la soumission du formulaire.
-  Il n'affiche que les résulats pour la couche de restriction des drones, que celle-ci soit activée ou non. 
+  Si la couche n'est pas affichée sur la carte, la couche n'est pas intérogée.
+- Un tableau de résultats : s'affiche lors de la soumission du formulaire.  
+  Il n'affiche que les résulats pour la couche de restrictions des drones, que celle-ci soit activée ou non. 
 
 ### Composant Vue
 *A finir avec image* 

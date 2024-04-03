@@ -29,10 +29,11 @@ Ce projet a été réalisé en 2 temps important
      
 2. Le développement avec Vue.JS
    Suite aux cours donnés au sujet de Vue.JS, tous le projet a été "migré".
-   Le travail de Mme Fournier a été titanesque, et a consisté a migré les fonctionnalité de :
+   Le travail de Mme Fournier a été titanesque, et a consisté a migré et développé les fonctionnalités de :
    - Activation des couches et des fonds de cartes
    - Tracer de la zone de vol
    - La partie du formulaire
+   - Popup
    - L'esthétique générale
    Mme Görisch a développé :
    - L'affichage du tableau de résultats
@@ -48,7 +49,7 @@ Cela a demandé souvent des améliorations voir de recommencer à zéros.
 Notammnent pour l'outils de recherche, rien n'a été récupéré de la prmière version. C'est pourquoi ces outils n'est pas aboutit, il manque par exemple l'autocomplétion implémentée dans la prmière version. 
 
 
-*Autre exemple Sarah de fonctionnalité qui étaient mieux avant ?  
+*Autre exemple Sarah de fonctionnalité qui étaient mieux avant ?  SF A NG : Perso j'en vois pas. Je crois que tout a été repris sauf pour l outil de recherche. Après niveau migration il y a un grand mixte entre reprise des fonctions js et de la nouveauté).
 La première version du code se trouve donc ici (branche ? zip? au repo??*
 
 
@@ -108,6 +109,7 @@ Elles concernent :
 #### Pour la carte 
 - Importation et exportation de la zone de vol
 - Modification de la zone de vol sans tout remplir le formulair à chaque fois
+- Divers fonctionnalité notamment pour pouvoir facilement se déplacer sur la carte
 
 #### Pour l'onglet pour la gestion des fonds de carte 
 - Gestion de la transparence

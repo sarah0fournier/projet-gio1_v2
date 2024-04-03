@@ -21,7 +21,7 @@ Ce projet a été réalisé en 2 temps importants
    Pour ce point, Mme Görisch a consacré beaucoup de temps, notamment en dévloppant les fonctionnalité de :
    - Tracer de la zone de vol
    - Requête vers l'API GeoAdmin (pour l'activation des couches et l'intersection) 
-   - Activation des couches et des fonds de cartes
+   - Activation des couches et des fonds de cartes  
    Mme Fournier a quant à elle développé :
    - La partie du formulaire
    - La barre de recherche (avec typeahead.js)

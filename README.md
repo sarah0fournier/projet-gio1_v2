@@ -40,6 +40,7 @@ Ce projet a été réalisé en 2 temps importants
    Mme Görisch a développé :
    - L'affichage du tableau de résultats
    - La barre de recherche
+   - Rédaction du README.md
 
    L'entraide a été un point central, et cela a été bénéfique, notamment pour trouver des petite erreur syntaxique bêtes.
    
@@ -82,6 +83,7 @@ La première version du code se trouve [ici](https://github.com/sarah0fournier/p
 
 ## Etat idéal
 ### Implémentation à corriger 
+- Vérifier que les ```States``` soint tous encore pertinents, car le code ayant évolué en parralèle, il se peut que certain ```State``` n'ai plus de raison d'exister.
 - Appliquer la fonction ```createLayer``` pour les fonds de cartes aussi
 - Fonctionnalité ```SwissImage``` ne fonctionne pas très bien pour les fonds de cartes
 - Eventuellelemt mettre une épingle sur l'objet recherché (implémenté dans la première version du code)
@@ -145,6 +147,13 @@ Elles concernent :
 - Plusieurs onglets selon les couches d'intersection
 - Exportation des resultats
 - Reduction du tableau de résultats
+
+## Conclusion
+Ce projet a été très instructif et nous a permis de mettre en pratique de nouveaux outils qui nous servirons à l'avenir.  
+Nous pensons néanmoins qu'il faudra encore quelques projets pour que la maitrise des ces nouveaux outils soient plus performantes et agréables.  
+Selon nous, il est assez indispensable de rédiger un plan avec les différents composants et leurs states principaux dès le début.
+Cela avant même de coder afin de mieux réfléchir et répartir les différentes responsabilités des composants.  
+L'utilisation de GIT a aussi été innovée et sera réutilisé à l'avenir.
 
 # Rappel d'utilisation GIT et NPM
 

@@ -18,7 +18,7 @@ Ce point a toute son importance pour la suite.
 ### Répartition des tâches
 Ce projet a été réalisé en 2 temps importants 
 1. Le développement sans Vue.JS  
-   Pour ce point, Mme Görisch a consacré beaucoup de temps, notamment en dévloppant les fonctionnalité de :
+   Pour ce point, Mme Görisch a consacré beaucoup de temps, notamment en dévloppant les fonctionnalitées de :
    - Tracer de la zone de vol
    - Requête vers l'API GeoAdmin (pour l'activation des couches et l'intersection) 
    - Activation des couches et des fonds de cartes
@@ -30,7 +30,7 @@ Ce projet a été réalisé en 2 temps importants
      
 2. Le développement avec Vue.JS
    Suite aux cours donnés au sujet de Vue.JS, tous le projet a été "migré".  
-   Le travail de Mme Fournier a été titanesque, et a consisté a migré et développé les fonctionnalités de :
+   Le travail de Mme Fournier a été titanesque, et a consisté a migré et développé les fonctionnalitées de :
    - Activation des couches et des fonds de cartes
    - Tracer de la zone de vol
    - La partie du formulaire
@@ -45,7 +45,7 @@ Ce projet a été réalisé en 2 temps importants
    
 ### Problèmes rencontrés
 La migration à 3 semaines de la fin du projet a été un travail long et très prise tête.  
-Nous avons essayé de récupérer un maximum les scricts JS utilisés lors du développement sans JS.  
+Nous avons essayé de récupérer un maximum les scripts JS utilisés lors du développement sans Vues.  
 Cela a demandé souvent des améliorations voir de recommencer à zéros.
 
 Notammnent pour l'outils de recherche, rien n'a été récupéré de la première version. C'est pourquoi cet outil n'est pas aboutit, il manque par exemple l'autocomplétion implémentée dans la première version. 
@@ -65,7 +65,7 @@ La première version du code se trouve donc ici (branche ? zip? au repo??*
    - Bouton de dessin pour la zone de vol
    - Bouton pour soumettre : permet d'afficher le tableau de resultats d'intersection avec les restrictions
    - Bouton pour réinitialiser le formulaire : permet de fermer le tableau, d'effacer la forme dessinée, et de vider le formulaire
-- Des checkbox pour activer les couches à afficher 
+- Des checkboxs pour activer les couches à afficher 
 - Une carte sur laquelle il est possible de dessiner la zone de vol
 - Un onglet pour choisir les fonds de carte 
 - Un bouton Popup : qui permet de cliquer sur la carte et d'obtenir les infos de l'objet cliqué.  
@@ -113,7 +113,7 @@ Elles concernent :
 - Importation et exportation de la zone de vol
 - Modification de la zone de vol sans tout remplir le formulaire à chaque fois
 - Divers fonctionnalités notamment pour pouvoir facilement se déplacer sur la carte
-- des outils de mesures
+- Des outils de mesures
   
 #### Pour l'onglet pour la gestion des fonds de carte 
 - Gestion de la transparence

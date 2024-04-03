@@ -82,37 +82,39 @@ La première version du code se trouve donc ici (branche ? zip? au repo??*
 * A finir*
 
 ### Fonctionalités à implémenter
-Celles-ci n'ont pas été implémenter par manque de temps principalement.  
+Celles-ci n'ont pas été implémentées par manque de temps principalement.  
 Elles concernent : 
+
 #### Pour la barre de recherche 
-- L'autocomplétion (implémenté dans la première version du code) 
+- L'autocomplétion (implémenté dans la première version du code)
 - Mieux gérer le zoom sur la carte
-- Eventuellelemt mettre une épingle sur l'objet rechercher (implémenté dans la première version du code)
+- Eventuellelemt mettre une épingle sur l'objet recherché (implémenté dans la première version du code)
 - La recherche par coordonnées (implémenté dans la première version du code)
 
-  #### Pour le formulaire
+#### Pour le formulaire
 - Gestion des informations remplies :
-   - En affichant un autre tableau de resultat avec les restrictios en fontion de la hauteur et du poids
-   - En calculant s'il y a des intersection avec le MNS ou les objets pouvant géner la circulation aérienne, etc.
-   - En renvoyant l'utilisateur vers le site internet des restrictions
+   - En affichant un autre tableau de resultat avec les restrictions en fontion de la hauteur et du poids
+   - En calculant s'il y a des intersections avec le MNS ou les objets pouvant géner la circulation aérienne, etc.
+   - En renvoyant l'utilisateur vers le site internet des restrictions  
      *lien à mettre*
- - En inttroduisant d'autre informations comme :
+ - En introduisant d'autres informations comme :
    - Le permis que l'on dispose
-   - Le nombre de personne estimées que l'on survole
-   - Le jours et l'heure 
+   - Le nombre de personnes estimées survolées
+   - Le jours et l'heure (prévisions de la météo, de la fréquentation, etc.)
      
 #### Pour la partie des couches à activer 
 - D'autres couches comme
      - *A remplir*
-- La possiblilité d'avoir de la transparence sur la couche activée
-- Bouton pour observer les méta données de la couche
+- La possiblilité de gérer de la transparence sur la couche activée
+- Bouton pour observer les méta-données de la couche
 - Légende des couleurs et symboles par couches
   
 #### Pour la carte 
 - Importation et exportation de la zone de vol
-- Modification de la zone de vol sans tout remplir le formulair à chaque fois
-- Divers fonctionnalité notamment pour pouvoir facilement se déplacer sur la carte
-
+- Modification de la zone de vol sans tout remplir le formulaire à chaque fois
+- Divers fonctionnalités notamment pour pouvoir facilement se déplacer sur la carte
+- des outils de mesures
+  
 #### Pour l'onglet pour la gestion des fonds de carte 
 - Gestion de la transparence
 
@@ -120,9 +122,12 @@ Elles concernent :
 - Le parsage des autres couches
 - Le retour d'information géographique (coordonnées, altitude sur MNT et MNA, etc.)
 - Gestion de la taille du popup
-- 
+  
 #### Pour le tableau de resultats 
-*A finir*
+- L'affichage des resultats pour les autres couches
+- Plusieurs onglets selon les couches d'intersection
+- Exportation des resultats
+- Reduction du tableau de résultats
 
 # A trier 
 

@@ -52,7 +52,7 @@ Notammnent pour l'outils de recherche, rien n'a été récupéré de la premièr
 Les autres fonctionnalités ont toutes été ré-implanté voir améliorées.  
 En conclusion, la migration ver Vue.JS a été délicate mais a pu simplifier certiane fonctionnalité.
 
-*La première version du code se trouve donc ici (branche ? zip? au repo??*
+La première version du code se trouve [ici](https://github.com/sarah0fournier/projet-gio1)
 
 ## Etat actuel
 
@@ -108,8 +108,9 @@ Elles concernent :
 - Gestion des informations remplies :
    - En affichant un autre tableau de resultat avec les restrictions en fontion de la hauteur et du poids
    - En calculant s'il y a des intersections avec le MNS ou les objets pouvant géner la circulation aérienne, etc.
-   - En renvoyant l'utilisateur vers le site internet des restrictions  
-     *lien à mettre*
+   - En renvoyant l'utilisateur vers le site internet des restrictions 
+     - [Explications fédérales](https://www.vd.ch/themes/securite/drones)
+     - [Explications cantonales VD](https://www.bazl.admin.ch/bazl/fr/home/drohnen/open.html)
  - En introduisant d'autres informations comme :
    - Le permis que l'on dispose
    - Le nombre de personnes estimées survolées
@@ -117,11 +118,11 @@ Elles concernent :
      
 #### Pour la partie des couches à activer 
 - D'autres couches comme
-     - Avis de tir et zones de danger publiés [Texte du lien](https://api3.geo.admin.ch/rest/services/api/MapServer/ch.vbs.schiessanzeigen)
-     - Places d'atterrissage d'hôpitaux
-     - Places d'atterrissage en montagne
-     - Zones construites aux termes du droit aérien suisse
-     - 
+     - Avis de tir et zones de danger publiés [api3.geo.admin.ch](https://api3.geo.admin.ch/rest/services/api/MapServer/ch.vbs.schiessanzeigen)
+     - Places d'atterrissage d'hôpitaux [api3.geo.admin.ch](https://api3.geo.admin.ch/rest/services/api/MapServer/ch.bazl.spitallandeplaetze)
+     - Places d'atterrissage en montagne [api3.geo.admin.ch](https://api3.geo.admin.ch/rest/services/api/MapServer/ch.bazl.gebirgslandeplaetze)
+     - Zones construites aux termes du droit aérien suisse [api3.geo.admin.ch](https://api3.geo.admin.ch/rest/services/api/MapServer/ch.bazl.bebaute-gebiete_luftfahrtrecht)
+     - Les zones de restrictions cantonales (Il faut un accès pour accèder à l'API)
 - La possiblilité de gérer de la transparence sur la couche activée
 - Bouton pour observer les méta-données de la couche
 - Légende des couleurs et symboles par couches
@@ -145,47 +146,29 @@ Elles concernent :
 - Exportation des resultats
 - Reduction du tableau de résultats
 
-# A trier 
+# Rappel d'utilisation GIT et NPM
 
-This is a basic starter project for a Vuejs 3.0 app (via vue-cli). 
-It includes :
+Ceci est basé sur un projet de démarrage de base pour une application Vue.js 3.0.
+Il comprend :
 - vuejs: 3.2
     - vue-router
     - axios
-- cesium: 1.85
-- leaflet: 1.7.1
 - Openlayers: 6.9.0
 
 ## Installation
-
-First download the project with Git:
-
+Premier téléchargement 
 ```
-git clone https://github.com/thibaud-c/seed-vuejs3.0-carto2D-3D.git your_project_name
+git clone git@github.com:sarah0fournier/projet-gio1_v2.git
 ```
-
-Then open the folder in your command line, and install the needed dependencies:
-
+Ensuite, ouvrez le dossier dans votre ligne de commande et installez les dépendances nécessaires :
 ```
-cd your_project_name
+cd projet-gio1_v2
 npm install
 ```
 
-Finally create a file .env at your project root to provide your Cesium ion key:
-
-<sup>_an example of .env is provided in .env.example_</sup>
-```js
-VUE_APP_CESIUM_ION_TOKEN=YOUR_CESIUM_ION_KEY
-```
-
 ## Run
-
-### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
 ```

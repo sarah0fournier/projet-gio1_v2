@@ -16,8 +16,8 @@ Il a donc été réalisé en parralèle des cours, ce qui a considérablement co
 Ce point a toute son importance pour la suite. 
 
 ### Répartition des tâches
-Ce projet a été réalisé en 2 temps important 
-1. Le développement sans Vue.JS
+Ce projet a été réalisé en 2 temps importants 
+1. Le développement sans Vue.JS  
    Pour ce point, Mme Görisch a consacré beaucoup de temps, notamment en dévloppant les fonctionnalité de :
    - Tracer de la zone de vol
    - Requête vers l'API GeoAdmin (pour l'activation des couches et l'intersection) 

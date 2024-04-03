@@ -80,6 +80,14 @@ En conclusion, la migration ver Vue.JS a été délicate mais a pu simplifier ce
 ### Implémentation à corriger 
 * A finir*
 
+### Composant Vue idéal
+![Découpage théorique en composants Vue.JS](https://github.com/sarah0fournier/projet-gio1_v2/blob/main/img_README/Vue_theorique.svg)  
+Les pricipales améliorations sont : 
+- La gestion des couches à activer : une checkbox indépendant qui transmet les infos à son parents directement
+- La gestion des tableaux de resultats : des boutons qui affichent les résultats en fonctions des couches affichées. Ci-dessous un exemple :
+  ![Exemple de Géoplanet](https://github.com/sarah0fournier/projet-gio1_v2/blob/main/img_README/Exemple_Tab.PNG)  
+  
+
 ### Fonctionalités à implémenter
 Celles-ci n'ont pas été implémentées par manque de temps principalement.  
 Elles concernent : 

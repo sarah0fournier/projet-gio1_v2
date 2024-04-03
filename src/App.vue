@@ -68,7 +68,7 @@
 
       <!-- Right: Contenur map -->
       <div class="col-9">
-        <ViewMaps :layers="layers" :layerVisibility="layerVisibility" :isDrawing="isDrawing" :intialiserFormulaire="intialiserFormulaire" :isResults="isResults" :selectedCoordinates="selectedCoordinates" @close-draw="this.isDrawing=false"/>      
+        <ViewMaps :layers="layers" :layerVisibility="layerVisibility" :isDrawing="isDrawing" :intialiserFormulaire="intialiserFormulaire" :isResults="isResults" :isVectorLayer="isVectorLayer" :selectedCoordinates="selectedCoordinates" @close-draw="this.isDrawing=false"/>      
       </div>
       <!-- End Contenur map --> 
 
@@ -215,6 +215,7 @@ export default {
 
       // Enlever tableau resultat 
       this.isVectorLayer = false
+
     },
 
     endTableau(event){
